@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Favoritos | Inmobiliaria La Casona</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- SweetAlert2 for beautiful modals -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div class="header-band">
+        ASESORAMIENTO PERSONALIZADO | FINANCIACIÓN EXCLUSIVA
+    </div>
+
+    <header class="main-header">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-house-chimney"></i>
+            LA CASONA
+        </a>
+
+        <div class="header-icons">
+            <div class="icon-item" onclick="window.location.href='index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Volver</span>
+            </div>
+            <div class="icon-item" style="color: var(--primary-color);">
+                <span id="user-display">Maria Vargas</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="favorites-container">
+        <h1 class="section-title">Mis Favoritos</h1>
+
+        <div id="favorites-grid" class="properties-grid">
+            <!-- Cards will be injected here via JS -->
+        </div>
+
+        <div id="no-favorites" class="empty-state" style="display: none;">
+            <i class="fa-regular fa-heart"></i>
+            <h3>Aún no has guardado propiedades favoritas.</h3>
+            <p>Explora nuestro catálogo y guarda las que más te gusten.</p>
+            <a href="index.html"
+                style="color: var(--primary-color); font-weight: bold; margin-top: 10px; display: inline-block;">Ver
+                Propiedades</a>
+        </div>
+    </main>
+
+    <footer>
+        © 2024 - Inmobiliaria La Casona - Todos los derechos reservados.
+    </footer>
+
+    <script>
+        // Simulated Database of properties (Normally this would come from a backend)
+        const propertiesDB = {
+            "1": { title: "Casa Moderna en Barrio Norte, Jardín amplio y piscina", price: "USD 350.000", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=80", tag: "VENTA", tagColor: "--accent-color", details: ["4 Dorm", "3 Baños", "250m²"] },
+            "2": { title: "Departamento de Lujo con vista al río", price: "USD 180.000", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&q=80", tag: "NUEVO", tagColor: "--primary-color", details: ["2 Dorm", "2 Baños", "90m²"] },
+            "3": { title: "Residencia Clásica en zona residencial exclusiva", price: "USD 520.000", img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80", tag: "VENTA", tagColor: "--accent-color", details: ["5 Dorm", "4 Baños", "400m²"] },
+            "4": { title: "Minimalista a estrenar, financiación disponible", price: "USD 290.000", img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=500&q=80", tag: "OPORTUNIDAD", tagColor: "#28a745", tagIsHex: true, details: ["3 Dorm", "2 Baños", "180m²"] },
+            "5": { title: "Local comercial céntrico, alta rentabilidad asegurada", price: "USD 120.000", img: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=500&q=80", tag: "INVERSIÓN", tagColor: "#e67e22", tagIsHex: true, details: ["Local", "1 Baño", "45m²"] },
+            "6": { title: "Terreno para desarrollo en zona de expansión", price: "USD 85.000", img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=500&q=80", tag: "LOTE", tagColor: "#e67e22", tagIsHex: true, details: ["Lote", "Arbolado", "600m²"] },
+            "7": { title: "PH antiguo a refaccionar, ideal para reciclar", price: "USD 65.000", img: "https://images.unsplash.com/photo-1513584685908-95c9e2d09eb4?auto=format&fit=crop&w=500&q=80", tag: "REFACCIONAR", tagColor: "#e67e22", tagIsHex: true, details: ["2 Dorm", "1 Baño", "110m²"] },
+            "8": { title: "Monoambiente moderno, excelente ubicación", price: "$ 350.000 / mes", img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=500&q=80", tag: "ALQUILER", tagColor: "#17a2b8", tagIsHex: true, details: ["Monoamb.", "1 Baño", "35m²"] },
+            "9": { title: "Casa 3 ambientes, patio y parrilla", price: "$ 650.000 / mes", img: "https://images.unsplash.com/photo-1484154218962-a1c00208099f?auto=format&fit=crop&w=500&q=80", tag: "ALQUILER", tagColor: "#17a2b8", tagIsHex: true, details: ["2 Dorm", "1 Baño", "120m²"] },
+            "10": { title: "Oficina corporativa, piso completo, vista abierta", price: "USD 1.200 / mes", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=500&q=80", tag: "OFICINA", tagColor: "#17a2b8", tagIsHex: true, details: ["Oficina", "2 Baños", "150m²"] }
+        };
+
+        const favoritesGrid = document.getElementById('favorites-grid');
+        const noFavorites = document.getElementById('no-favorites');
+
+        function loadFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('userFavorites')) || [];
+
+            if (favorites.length === 0) {
+                favoritesGrid.style.display = 'none';
+                noFavorites.style.display = 'block';
+                return;
+            }
+
+            favoritesGrid.innerHTML = ''; // Clear
+
+            favorites.forEach(id => {
+                const prop = propertiesDB[id];
+                if (prop) {
+                    const card = document.createElement('div');
+                    card.className = 'property-card';
+                    card.onclick = () => Swal.fire({
+                        title: prop.title,
+                        text: 'Aquí iría el detalle completo de la propiedad. (ID: ' + id + ')',
+                        imageUrl: prop.img,
+                        imageWidth: 400,
+                        imageHeight: 200,
+                        imageAlt: 'Imagen propiedad',
+                        confirmButtonText: 'Cerrar',
+                        confirmButtonColor: '#1a2b4c'
+                    });
+
+                    const bgStyle = prop.tagIsHex ? `background: ${prop.tagColor}` : `background-color: var(${prop.tagColor})`;
+
+                    card.innerHTML = `
+                        <div class="card-image">
+                            <div class="card-fav" onclick="removeFavorite(event, '${id}')" title="Eliminar de favoritos">
+                                <i class="fa-solid fa-trash-can" style="color: #999; font-size: 14px;"></i>
+                            </div>
+                            <span class="card-tag" style="${bgStyle}">${prop.tag}</span>
+                            <img src="${prop.img}" alt="${prop.title}">
+                        </div>
+                        <div class="card-info">
+                            <h3 class="card-title">${prop.title}</h3>
+                            <div class="card-price">${prop.price}</div>
+                            <div class="card-details">
+                                <span>${prop.details[0]}</span>
+                                <span>${prop.details[1]}</span>
+                                <span>${prop.details[2]}</span>
+                            </div>
+                        </div>
+                    `;
+                    favoritesGrid.appendChild(card);
+                }
+            });
+        }
+
+        function removeFavorite(event, id) {
+            event.stopPropagation();
+
+            Swal.fire({
+                title: '¿Eliminar de favoritos?',
+                text: "Esta acción quitará la propiedad de tu lista.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#1a2b4c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let favorites = JSON.parse(localStorage.getItem('userFavorites')) || [];
+                    favorites = favorites.filter(favId => favId !== id);
+                    localStorage.setItem('userFavorites', JSON.stringify(favorites));
+
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'La propiedad ha sido eliminada de tus favoritos.',
+                        'success'
+                    )
+
+                    // Reload
+                    loadFavorites();
+                }
+            })
+        }
+
+        // Initialize
+        loadFavorites();
+
+    </script>
+</body>
+
+</html>

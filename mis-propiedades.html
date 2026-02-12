@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Propiedades | Inmobiliaria La Casona</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- SweetAlert2 for beautiful modals -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-add {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-add:hover {
+            background-color: #12213a;
+        }
+
+        /* Table Styles */
+        .properties-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .properties-table th,
+        .properties-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .properties-table th {
+            background-color: #f9f9f9;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .properties-table tr:hover {
+            background-color: #fcfcfc;
+        }
+
+        .prop-image-cell img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* Carousel Styles for Table Cells (Optional, if we want carousel here too) */
+        /* For now kept simple, but we can add similar carousel logic if needed */
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+
+        .status-active {
+            background-color: #e6f4ea;
+            color: #1e7e34;
+        }
+
+        .type-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: white;
+            display: inline-block;
+        }
+
+        .type-venta {
+            background-color: var(--accent-color);
+        }
+
+        .type-alquiler {
+            background-color: #17a2b8;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-sold {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 16px;
+            color: var(--text-light);
+            transition: color 0.2s;
+        }
+
+        .action-btn.edit:hover {
+            color: var(--primary-color);
+        }
+
+        .action-btn.delete:hover {
+            color: #dc3545;
+        }
+
+        .action-btn.view:hover {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .properties-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-band">
+        ASESORAMIENTO PERSONALIZADO | FINANCIACIÓN EXCLUSIVA
+    </div>
+
+    <header class="main-header">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-house-chimney"></i>
+            LA CASONA
+        </a>
+
+        <div class="header-icons">
+            <div class="icon-item" onclick="window.location.href='index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Volver</span>
+            </div>
+            <div class="icon-item dropdown-container">
+                <i class="fa-regular fa-user"></i>
+                <span id="user-display">Maria Vargas</span>
+                <div class="dropdown-menu">
+                    <a href="favoritos.html" class="dropdown-item">Mis Favoritos</a>
+                    <a href="mis-propiedades.html" class="dropdown-item">Mis Propiedades</a>
+                    <a href="#" class="dropdown-item">Estadísticas</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="index.html" class="dropdown-item logout-item">Salir</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="section-title" style="margin:0; text-align: left;">Mis Propiedades</h1>
+            <button class="btn-add" onclick="addNewProperty()">
+                <i class="fa-solid fa-plus"></i> Publicar Nueva
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="properties-table">
+                <thead>
+                    <tr>
+                        <th width="100">Imagen</th>
+                        <th>Título</th>
+                        <th>Tipo</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Visitas</th>
+                        <th width="120">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="properties-list">
+                    <!-- Javascript will populate this -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="no-properties" class="empty-state" style="display: none; padding: 50px; text-align: center;">
+            <i class="fa-solid fa-house-user" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+            <h3>No tienes propiedades publicadas.</h3>
+            <p>Comienza a vender o alquilar publicando tu primera propiedad.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; color: #999; font-size: 12px; padding: 20px;">
+            © 2024 - Inmobiliaria La Casona - Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        // Sample Data for User's Properties
+        let myProperties = [
+            { id: 101, title: "Departamento Recoleta", price: "USD 120.000", type: "venta", images: ["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=150&q=80", "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=150&q=80"], status: "active", views: 245 },
+            { id: 102, title: "Casa en San Isidro", price: "USD 450.000", type: "venta", images: ["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=150&q=80"], status: "pending", views: 1120 },
+            { id: 103, title: "Lote en Costa Esmeralda", price: "USD 45.000", type: "venta", images: ["https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=150&q=80"], status: "sold", views: 890 }
+        ];
+
+        const listContainer = document.getElementById('properties-list');
+        const noProps = document.getElementById('no-properties');
+
+        function renderProperties() {
+            if (myProperties.length === 0) {
+                document.querySelector('.properties-table').style.display = 'none';
+                noProps.style.display = 'block';
+                return;
+            }
+
+            document.querySelector('.properties-table').style.display = 'table';
+            noProps.style.display = 'none';
+            listContainer.innerHTML = '';
+
+            myProperties.forEach(prop => {
+                const tr = document.createElement('tr');
+
+                let statusLabel = '';
+                let statusClass = '';
+
+                switch (prop.status) {
+                    case 'active': statusLabel = 'Activo'; statusClass = 'status-active'; break;
+                    case 'pending': statusLabel = 'Reservado'; statusClass = 'status-pending'; break;
+                    case 'sold': statusLabel = 'Vendido'; statusClass = 'status-sold'; break;
+                }
+
+                const typeClass = prop.type === 'alquiler' ? 'type-alquiler' : 'type-venta';
+                const typeLabel = prop.type ? prop.type.toUpperCase() : 'VENTA';
+
+                tr.innerHTML = `
+                    <td class="prop-image-cell">
+                        <img src="${prop.images[0]}" alt="Propiedad">
+                        ${prop.images.length > 1 ? '<span style="font-size:10px; color:#666; display:block; margin-top:2px;">+' + (prop.images.length - 1) + ' fotos</span>' : ''}
+                    </td>
+                    <td><strong>${prop.title}</strong><br><small style="color:#666">ID: ${prop.id}</small></td>
+                    <td><span class="type-badge ${typeClass}">${typeLabel}</span></td>
+                    <td>${prop.price}</td>
+                    <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
+                    <td>${prop.views}</td>
+                    <td>
+                        <button class="action-btn view" title="Ver" onclick="viewProperty(${prop.id})"><i class="fa-solid fa-eye"></i></button>
+                        <button class="action-btn edit" title="Editar" onclick="editProperty(${prop.id})"><i class="fa-solid fa-pen"></i></button>
+                        <button class="action-btn delete" title="Eliminar" onclick="deleteProperty(${prop.id})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                listContainer.appendChild(tr);
+            });
+        }
+
+        function viewProperty(id) {
+            Swal.fire({
+                title: 'Vista Previa',
+                text: 'Redirigiendo a la publicación...',
+                icon: 'info',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
+
+        function editProperty(id) {
+            Swal.fire({
+                title: 'Editar Propiedad',
+                text: 'Aquí se abriría el formulario de edición para la propiedad ' + id,
+                icon: 'info'
+            });
+        }
+
+        function deleteProperty(id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "No podrás revertir esto.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    myProperties = myProperties.filter(p => p.id !== id);
+                    renderProperties();
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'La propiedad ha sido eliminada.',
+                        'success'
+                    )
+                }
+            })
+        }
+
+        function addNewProperty() {
+            window.location.href = 'publicar-propiedad.html';
+        }
+
+        // Initialize
+        renderProperties();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Inmobiliaria La Casona</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div class="header-band">
+        ASESORAMIENTO PERSONALIZADO | FINANCIACIÓN EXCLUSIVA
+    </div>
+
+    <header class="main-header">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-house-chimney"></i>
+            LA CASONA
+        </a>
+
+        <div class="header-icons">
+            <div class="icon-item" onclick="window.location.href='index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Volver</span>
+            </div>
+            <div class="icon-item dropdown-container">
+                <i class="fa-regular fa-user"></i>
+                <span>Mi Cuenta</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="contact-container">
+        <h1 class="section-title">Contacto</h1>
+        <p class="section-subtitle">Estamos aquí para ayudarte. Visítanos, llámanos o escríbenos.</p>
+
+        <div class="contact-grid">
+            <!-- Info Column -->
+            <div class="info-box">
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="info-text">
+                        <h4>Nuestra Oficina</h4>
+                        <p>Argerich 325, Local A<br>Ciudad Autónoma de Buenos Aires</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                    <div class="info-text">
+                        <h4>Teléfonos</h4>
+                        <p>+54 11 1234-5678<br>+54 11 8765-4321 (WhatsApp)</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-regular fa-envelope"></i></div>
+                    <div class="info-text">
+                        <h4>Email</h4>
+                        <p>contacto@lacasona.com<br>ventas@lacasona.com</p>
+                    </div>
+                </div>
+
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.330872276589!2d-58.4687948!3d-34.6210793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca237d82570b%3A0x6291974780655a15!2sArgerich%20325%2C%20C1406%20C%C3%81BA!5e0!3m2!1ses!2sar!4v1707767000000!5m2!1ses!2sar"
+                        width="600" height="450" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <!-- Form Column -->
+            <div class="form-box">
+                <h3 style="color: var(--primary-color); margin-top:0;">Envíanos un mensaje</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-input" required placeholder="Tu nombre">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" required placeholder="tucorreo@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Teléfono</label>
+                        <input type="tel" class="form-input" placeholder="Opcional">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Mensaje</label>
+                        <textarea class="form-textarea" required placeholder="Hola, estoy interesado en..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">ENVIAR MENSAJE</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Inmobiliaria La Casona</h4>
+                <p style="color: #696969; font-size: 14px; line-height: 1.6;">
+                    Líderes en el mercado inmobiliario desde 1974. Confianza y trayectoria.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <a href="index.html">Inicio</a>
+                <a href="index.html#destacados">Propiedades en Venta</a>
+                <a href="tasacion.html">Tasaciones</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <a href="https://maps.google.com/?q=Argerich+325,+CABA" target="_blank">
+                    <i class="fa-solid fa-location-dot"></i> Argerich 325, Local A, CABA
+                </a>
+                <a href="#"><i class="fa-solid fa-phone"></i> +54 11 1234-5678</a>
+                <a href="#"><i class="fa-regular fa-envelope"></i> contacto@lacasona.com</a>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px; color: #999; font-size: 12px;">
+            © 2024 - Inmobiliaria La Casona - Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const btn = this.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'ENVIANDO...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Mensaje Enviado!',
+                    text: 'Gracias por contactarnos. Te responderemos a la brevedad.',
+                    confirmButtonColor: '#1a2b4c'
+                });
+
+                this.reset();
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar Propiedad | Inmobiliaria La Casona</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        .publish-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .form-section-title {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #fdfdfd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background: #f0f4f8;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .feature-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-band">
+        ASESORAMIENTO PERSONALIZADO | FINANCIACIÓN EXCLUSIVA
+    </div>
+
+    <header class="main-header">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-house-chimney"></i>
+            LA CASONA
+        </a>
+
+        <div class="header-icons">
+            <div class="icon-item" onclick="window.history.back()">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Volver</span>
+            </div>
+            <div class="icon-item dropdown-container">
+                <i class="fa-regular fa-user"></i>
+                <span id="user-display">Maria Vargas</span>
+                <div class="dropdown-menu">
+                    <a href="favoritos.html" class="dropdown-item">Mis Favoritos</a>
+                    <a href="mis-propiedades.html" class="dropdown-item">Mis Propiedades</a>
+                    <a href="#" class="dropdown-item">Estadísticas</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="index.html" class="dropdown-item logout-item">Salir</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="publish-container">
+        <div class="form-box">
+            <h1 class="section-title" style="text-align: left; margin-bottom: 5px;">Publicar Propiedad</h1>
+            <p style="color: #666; margin-bottom: 30px;">Completa el formulario para subir tu propiedad al mercado.</p>
+
+            <form id="publishForm">
+
+                <!-- Info Básica -->
+                <div class="form-section-title">Información Básica</div>
+
+                <div class="form-group">
+                    <label class="form-label">Título del Aviso</label>
+                    <input type="text" class="form-input" placeholder="Ej: Hermosa casa con piscina en barrio cerrado"
+                        required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Tipo de Operación</label>
+                        <select class="form-select" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="venta">Venta</option>
+                            <option value="alquiler">Alquiler</option>
+                            <option value="temporal">Alquiler Temporal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tipo de Inmueble</label>
+                        <select class="form-select" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="casa">Casa</option>
+                            <option value="departamento">Departamento</option>
+                            <option value="ph">PH</option>
+                            <option value="terreno">Terreno/Lote</option>
+                            <option value="local">Local Comercial</option>
+                            <option value="oficina">Oficina</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Moneda</label>
+                        <select class="form-select">
+                            <option value="usd">Dólar (USD)</option>
+                            <option value="ars">Peso Argentino (ARS)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Precio</label>
+                        <input type="number" class="form-input" placeholder="0" required>
+                    </div>
+                </div>
+
+                <!-- Ubicación -->
+                <div class="form-section-title">Ubicación del Inmueble</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Calle</label>
+                        <input type="text" class="form-input" placeholder="Nombre de la calle" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Altura / Número</label>
+                        <input type="text" class="form-input" placeholder="Ej: 1234" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Piso / Depto (Opcional)</label>
+                        <input type="text" class="form-input" placeholder="Ej: 4to B">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Barrio / Ciudad</label>
+                        <input type="text" class="form-input" placeholder="Ej: Palermo, CABA" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Mostrar dirección exacta en el mapa</label>
+                    <div class="feature-checkboxes">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked> Sí, mostrar ubicación precisa
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Características -->
+                <div class="form-section-title">Características Principales</div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Superficie Total (m²)</label>
+                        <input type="number" class="form-input" placeholder="Ej: 120">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Superficie Cubierta (m²)</label>
+                        <input type="number" class="form-input" placeholder="Ej: 90">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Ambientes</label>
+                        <input type="number" class="form-input" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Dormitorios</label>
+                        <input type="number" class="form-input" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Baños</label>
+                        <input type="number" class="form-input" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cocheras</label>
+                        <input type="number" class="form-input" min="0">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Descripción</label>
+                    <textarea class="form-textarea"
+                        placeholder="Describe los detalles de la propiedad, estado, luminosidad, amenities, etc."
+                        required></textarea>
+                </div>
+
+                <!-- Multimedia -->
+                <div class="form-section-title">Fotos y Multimedia</div>
+
+                <div class="upload-area" id="drop-zone">
+                    <div class="upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                    <h3>Arrastra y suelta tus fotos aquí</h3>
+                    <p style="color: #999;font-size: 14px;">o haz clic para seleccionar archivos</p>
+                    <input type="file" id="fileElem" multiple accept="image/*" style="display:none">
+                </div>
+                <div id="gallery" style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;"></div>
+
+
+                <div style="margin-top: 40px; display: flex; gap: 20px;">
+                    <button type="button" class="submit-btn" style="background: #ccc; color: #333;"
+                        onclick="window.history.back()">Cancelar</button>
+                    <button type="submit" class="submit-btn">Publicar Propiedad</button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div style="text-align: center; color: #999; font-size: 12px; padding: 20px;">
+            © 2024 - Inmobiliaria La Casona - Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        // File Upload Simulation
+        const dropZone = document.getElementById('drop-zone');
+        const fileElem = document.getElementById('fileElem');
+        const gallery = document.getElementById('gallery');
+
+        dropZone.addEventListener('click', () => fileElem.click());
+
+        fileElem.addEventListener('change', handleFiles);
+
+        function handleFiles(files) {
+            files = [...this.files];
+            files.forEach(previewFile);
+        }
+
+        function previewFile(file) {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = function () {
+                let img = document.createElement('img');
+                img.src = reader.result;
+                img.style.width = '100px';
+                img.style.height = '100px';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '4px';
+                gallery.appendChild(img);
+            }
+        }
+
+        // Form Submit
+        const form = document.getElementById('publishForm');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Simulation
+            Swal.fire({
+                title: '¡Publicación Exitosa!',
+                text: 'Tu propiedad ha sido enviada a revisión y pronto estará visible.',
+                icon: 'success',
+                confirmButtonColor: '#1a2b4c',
+                confirmButtonText: 'Ir a Mis Propiedades'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'mis-propiedades.html';
+                }
+            });
+        });
+
+        // Prevention for Drag & Drop defaults
+        ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false)
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Highlight drop zone
+        ;['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, highlight, false);
+        });
+        ;['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight(e) {
+            dropZone.style.borderColor = 'var(--primary-color)';
+            dropZone.style.background = '#eef';
+        }
+
+        function unhighlight(e) {
+            dropZone.style.borderColor = '#ccc';
+            dropZone.style.background = '#fdfdfd';
+        }
+
+        dropZone.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            let dt = e.dataTransfer;
+            let files = dt.files;
+            handleFiles.call({ files: files }, files);
+        }
+
+    </script>
+</body>
+
+</html>

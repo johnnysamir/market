@@ -12,426 +12,10 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        :root {
-            --primary-color: #1a2b4c;
-            /* Azul oscuro profesional */
-            --accent-color: #c5a47e;
-            /* Dorado/Beige elegante */
-            --bg-light: #f4f4f4;
-            --text-dark: #333333;
-            --text-light: #696969;
-            --hover-shadow: 0 8px 16px 2px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.05);
-        }
+    <!-- SweetAlert2 for beautiful modals -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        body {
-            font-family: 'Mulish', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
-            color: var(--text-dark);
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: 0.3s;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        /* --- Header Band --- */
-        .header-band {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 8px 0;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        /* --- Header Principal --- */
-        .main-header {
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 15px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo i {
-            color: var(--accent-color);
-        }
-
-        /* Buscador estilo Tiendamia */
-        .search-container {
-            flex-grow: 1;
-            max-width: 600px;
-            margin: 0 30px;
-            position: relative;
-        }
-
-        .search-form {
-            display: flex;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .search-input {
-            flex-grow: 1;
-            padding: 10px 15px;
-            border: none;
-            outline: none;
-            font-family: 'Mulish';
-        }
-
-        .search-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0 20px;
-            cursor: pointer;
-        }
-
-        .header-icons {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .icon-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .icon-item i {
-            font-size: 18px;
-            color: var(--text-light);
-        }
-
-        .icon-item:hover i {
-            color: var(--primary-color);
-        }
-
-        /* --- Navegación (Mega Menu simulado) --- */
-        .nav-bar {
-            background: #fff;
-            border-bottom: 1px solid #eee;
-            padding: 0 40px;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-item {
-            padding: 15px 0;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            position: relative;
-            color: var(--text-dark);
-        }
-
-        .nav-item:hover {
-            color: var(--accent-color);
-        }
-
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: var(--accent-color);
-            transition: 0.3s;
-        }
-
-        .nav-item:hover::after {
-            width: 100%;
-        }
-
-        /* --- Hero Slider --- */
-        .hero-section {
-            height: 400px;
-            background-image: url('https://images.unsplash.com/photo-1600596542815-2495db98dada?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: white;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero-content h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-btn {
-            background: var(--accent-color);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: 700;
-            text-transform: uppercase;
-            border: none;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: transform 0.2s;
-        }
-
-        .hero-btn:hover {
-            transform: scale(1.05);
-            background: #b08d55;
-        }
-
-        /* --- Tabs Section (Como en el original) --- */
-        .tabs-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .tabs-header {
-            display: flex;
-            border-bottom: 1px solid #ccc;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            padding: 15px 30px;
-            font-weight: 700;
-            cursor: pointer;
-            color: var(--text-light);
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab-btn.active {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--primary-color);
-            background: #f9f9f9;
-        }
-
-        /* --- Grilla de Propiedades (Estilo Tiendamia) --- */
-        .properties-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px 0;
-        }
-
-        .property-card {
-            border: 1px solid #eee;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            background: white;
-            position: relative;
-            cursor: pointer;
-        }
-
-        /* La animación clave del ejemplo: Hover Lift */
-        .property-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .card-image {
-            height: 200px;
-            background-color: #eee;
-            position: relative;
-        }
-
-        .card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .card-tag {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--accent-color);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        .card-info {
-            padding: 15px;
-        }
-
-        .card-title {
-            font-size: 14px;
-            font-weight: 400;
-            color: var(--text-light);
-            margin: 0 0 5px 0;
-            height: 40px;
-            overflow: hidden;
-        }
-
-        .card-price {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--text-dark);
-            margin: 5px 0;
-        }
-
-        .card-details {
-            display: flex;
-            gap: 15px;
-            font-size: 12px;
-            color: var(--text-light);
-            margin-top: 10px;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
-        }
-
-        .card-details span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        /* --- Banner Fino --- */
-        .skinny-banner {
-            background: #f4f4f4;
-            padding: 10px;
-            margin: 40px 0;
-            text-align: center;
-        }
-
-        .skinny-banner img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        /* --- Footer --- */
-        footer {
-            background: #f9f9f9;
-            padding: 50px 20px;
-            margin-top: 50px;
-            border-top: 1px solid #eee;
-        }
-
-        .footer-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-col h4 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .footer-col a {
-            display: block;
-            color: var(--text-light);
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .footer-col a:hover {
-            text-decoration: underline;
-        }
-
-        .newsletter-box {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Animaciones */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsivo */
-        @media (max-width: 768px) {
-            .nav-bar {
-                display: none;
-            }
-
-            /* En móvil se usaría un menú hamburguesa */
-            .main-header {
-                padding: 15px 20px;
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-
-            .search-container {
-                order: 3;
-                width: 100%;
-                margin: 10px 0 0 0;
-                max-width: 100%;
-            }
-
-            .header-icons span {
-                display: none;
-            }
-
-            /* Ocultar texto en iconos */
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -447,9 +31,10 @@
         </div>
 
         <div class="search-container">
-            <form class="search-form">
-                <input type="text" class="search-input" placeholder="Buscar por zona, barrio o calle...">
-                <button type="button" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <form class="search-form" id="searchForm">
+                <input type="text" id="searchInput" class="search-input"
+                    placeholder="Buscar por zona, barrio o calle...">
+                <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
 
@@ -458,11 +43,22 @@
                 <i class="fa-regular fa-heart"></i>
                 <span>Favoritos</span>
             </div>
-            <div class="icon-item">
+            <div class="icon-item dropdown-container">
                 <i class="fa-regular fa-user"></i>
-                <span>Mi Cuenta</span>
+                <span id="user-menu-text">Mi Cuenta</span>
+                <div class="dropdown-menu">
+                    <a href="#" id="login-link" class="dropdown-item">Ingresar</a>
+                    <a href="favoritos.html" class="dropdown-item">Mis Favoritos</a>
+
+                    <a href="mis-propiedades.html" class="dropdown-item">Mis Propiedades</a>
+                    <a href="#" class="dropdown-item">Estadísticas</a>
+
+                    <div class="dropdown-divider"></div>
+                    <a href="#" id="logout-link" class="dropdown-item logout-item" style="display:none;">Salir de Mi
+                        Cuenta</a>
+                </div>
             </div>
-            <div class="icon-item" style="color: var(--primary-color);">
+            <div class="icon-item" onclick="window.location.href='contacto.html'" style="color: var(--primary-color);">
                 <i class="fa-solid fa-phone"></i>
                 <span>Contacto</span>
             </div>
@@ -474,8 +70,9 @@
         <div class="nav-item">Venta</div>
         <div class="nav-item">Alquiler</div>
         <div class="nav-item">Emprendimientos</div>
-        <div class="nav-item">Tasaciones</div>
-        <div class="nav-item" style="margin-left: auto; color: var(--accent-color);">Nuevos Ingresos</div>
+        <a href="tasacion.html" class="nav-item">Tasaciones</a>
+        <div class="nav-item" style="margin-left: auto; color: var(--accent-color);"
+            onclick="activateTabAndScroll('nuevos')">Nuevos Ingresos</div>
     </nav>
 
     <div class="hero-section">
@@ -493,16 +90,31 @@
             <div class="tab-btn active" onclick="openTab(event, 'destacados')">Propiedades Destacadas</div>
             <div class="tab-btn" onclick="openTab(event, 'oportunidades')">Oportunidades de Inversión</div>
             <div class="tab-btn" onclick="openTab(event, 'alquileres')">Alquileres Recientes</div>
+            <div class="tab-btn" id="tab-nuevos" onclick="openTab(event, 'nuevos')">Nuevos Ingresos</div>
         </div>
 
         <div id="destacados" class="tab-content" style="display: block;">
             <div class="properties-grid">
 
-                <div class="property-card">
+                <div class="property-card" data-id="1">
                     <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '1')"><i class="fa-regular fa-heart"></i>
+                        </div>
                         <span class="card-tag">VENTA</span>
+
+                        <!-- Carousel Images (Stacked) -->
                         <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=80"
-                            alt="Casa Moderna">
+                            class="active" alt="Casa Moderna 1">
+                        <img src="https://images.unsplash.com/photo-1600596542815-2495db98dada?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Moderna 2">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Moderna 3">
+
+                        <!-- Controls -->
+                        <button class="carousel-btn prev" onclick="moveCarousel(event, this, -1)"><i
+                                class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" onclick="moveCarousel(event, this, 1)"><i
+                                class="fa-solid fa-chevron-right"></i></button>
                     </div>
                     <div class="card-info">
                         <h3 class="card-title">Casa Moderna en Barrio Norte, Jardín amplio y piscina</h3>
@@ -515,8 +127,10 @@
                     </div>
                 </div>
 
-                <div class="property-card">
+                <div class="property-card" data-id="2">
                     <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '2')"><i class="fa-regular fa-heart"></i>
+                        </div>
                         <span class="card-tag" style="background-color: var(--primary-color);">NUEVO</span>
                         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&q=80"
                             alt="Departamento">
@@ -532,11 +146,22 @@
                     </div>
                 </div>
 
-                <div class="property-card">
+                <div class="property-card" data-id="3">
                     <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '3')"><i class="fa-regular fa-heart"></i>
+                        </div>
                         <span class="card-tag">VENTA</span>
+                        <!-- Carousel Images -->
                         <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80"
-                            alt="Casa Clásica">
+                            class="active" alt="Casa Clásica 1">
+                        <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Clásica 2">
+
+                        <!-- Controls -->
+                        <button class="carousel-btn prev" onclick="moveCarousel(event, this, -1)"><i
+                                class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" onclick="moveCarousel(event, this, 1)"><i
+                                class="fa-solid fa-chevron-right"></i></button>
                     </div>
                     <div class="card-info">
                         <h3 class="card-title">Residencia Clásica en zona residencial exclusiva</h3>
@@ -549,8 +174,10 @@
                     </div>
                 </div>
 
-                <div class="property-card">
+                <div class="property-card" data-id="4">
                     <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '4')"><i class="fa-regular fa-heart"></i>
+                        </div>
                         <span class="card-tag" style="background: #28a745;">OPORTUNIDAD</span>
                         <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=500&q=80"
                             alt="Casa Minimalista">
@@ -569,13 +196,199 @@
             </div>
         </div>
 
-        <div id="oportunidades" class="tab-content"
-            style="display:none; padding: 40px; text-align:center; color: #666;">
-            <h3>Cargando oportunidades exclusivas...</h3>
+        <div id="oportunidades" class="tab-content" style="display:none;">
+            <div class="properties-grid">
+                <div class="property-card" data-id="5">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '5')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #e67e22;">INVERSIÓN</span>
+                        <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=500&q=80"
+                            alt="Local Comercial">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Local comercial céntrico, alta rentabilidad asegurada</h3>
+                        <div class="card-price">USD 120.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-store"></i> Local</span>
+                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 45m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="6">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '6')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #e67e22;">LOTE</span>
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=500&q=80"
+                            alt="Terreno">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Terreno para desarrollo en zona de expansión</h3>
+                        <div class="card-price">USD 85.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-layer-group"></i> Lote</span>
+                            <span><i class="fa-solid fa-tree"></i> Arbolado</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 600m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="7">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '7')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #e67e22;">REFACCIONAR</span>
+                        <img src="https://images.unsplash.com/photo-1513584685908-95c9e2d09eb4?auto=format&fit=crop&w=500&q=80"
+                            alt="PH a refaccionar">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">PH antiguo a refaccionar, ideal para reciclar</h3>
+                        <div class="card-price">USD 65.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 2 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 110m²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="alquileres" class="tab-content" style="display:none; padding: 40px; text-align:center; color: #666;">
-            <h3>Cargando alquileres recientes...</h3>
+        <div id="alquileres" class="tab-content" style="display:none;">
+            <div class="properties-grid">
+                <div class="property-card" data-id="8">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '8')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #17a2b8;">ALQUILER</span>
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=500&q=80"
+                            alt="Monoambiente">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Monoambiente moderno, excelente ubicación</h3>
+                        <div class="card-price">$ 350.000 / mes</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> Monoamb.</span>
+                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 35m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="9">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '9')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #17a2b8;">ALQUILER</span>
+                        <img src="https://images.unsplash.com/photo-1484154218962-a1c00208099f?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Alquiler">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Casa 3 ambientes, patio y parrilla</h3>
+                        <div class="card-price">$ 650.000 / mes</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 2 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 120m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="10">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '10')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #17a2b8;">OFICINA</span>
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=500&q=80"
+                            alt="Oficina">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Oficina corporativa, piso completo, vista abierta</h3>
+                        <div class="card-price">USD 1.200 / mes</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-briefcase"></i> Oficina</span>
+                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 150m²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="nuevos" class="tab-content" style="display:none;">
+            <div class="properties-grid">
+                <div class="property-card" data-id="11">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '11')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: var(--accent-color);">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=500&q=80"
+                            alt="Nuevo Penthouse">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Penthouse de lujo con terraza privada</h3>
+                        <div class="card-price">USD 450.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 4 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 3 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 220m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="12">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '12')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: var(--accent-color);">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1599809272591-32b9d2c0021c?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa en Barrio Cerrado">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Moderna casa en barrio cerrado exclusivo</h3>
+                        <div class="card-price">USD 680.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 4 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 4 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 35m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="13">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '13')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: var(--accent-color);">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=500&q=80"
+                            alt="Duplex">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Duplex luminoso a estrenar</h3>
+                        <div class="card-price">USD 185.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 3 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 110m²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="search-results-section" style="display:none; text-align: center;">
+            <h2 class="section-title" style="font-size: 24px; margin-bottom: 20px;">Resultados de Búsqueda</h2>
+            <div id="search-results-grid" class="properties-grid">
+                <!-- Javascript will inject results here -->
+            </div>
+            <div id="no-results" style="display:none; padding: 40px; color: #666;">
+                <i class="fa-solid fa-magnifying-glass" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+                <h3>No se encontraron propiedades</h3>
+                <p>Intenta con otros términos de búsqueda.</p>
+            </div>
         </div>
 
     </main>
@@ -587,9 +400,9 @@
                 <h2 style="margin: 0;">¿Querés vender tu propiedad?</h2>
                 <p style="margin: 5px 0 0 0; opacity: 0.8;">Tasamos en 24hs sin costo.</p>
             </div>
-            <button
-                style="background: white; color: var(--primary-color); border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px;">Solicitar
-                Tasación</button>
+            <a href="tasacion.html"
+                style="background: white; color: var(--primary-color); border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; text-decoration: none;">Solicitar
+                Tasación</a>
         </div>
     </div>
 
@@ -617,7 +430,9 @@
             </div>
             <div class="footer-col">
                 <h4>Contacto</h4>
-                <a href="#"><i class="fa-solid fa-location-dot"></i> Av. Principal 1234</a>
+                <a href="https://maps.google.com/?q=Argerich+325,+CABA" target="_blank" title="Ver en mapa">
+                    <i class="fa-solid fa-location-dot"></i> Argerich 325, Local A, CABA
+                </a>
                 <a href="#"><i class="fa-solid fa-phone"></i> +54 11 1234-5678</a>
                 <a href="#"><i class="fa-regular fa-envelope"></i> contacto@lacasona.com</a>
             </div>
@@ -636,6 +451,33 @@
             © 2024 - Inmobiliaria La Casona - Todos los derechos reservados.
         </div>
     </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="color: var(--primary-color);">Iniciar Sesión</h2>
+                <p style="color: #666; font-size: 14px;">Ingresa a tu cuenta para gestionar tus propiedades</p>
+            </div>
+            <form id="loginForm">
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px; font-weight:700;">Correo Electrónico</label>
+                    <input type="email" id="login-email" required placeholder="correo@ejemplo.com"
+                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px; font-weight:700;">Contraseña</label>
+                    <input type="password" id="login-password" required placeholder="********"
+                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <p id="login-error"
+                    style="color: #d9534f; display: none; font-size: 14px; margin-top: 10px; text-align: center;"></p>
+                <button type="submit"
+                    style="width: 100%; background: var(--primary-color); color: white; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px;">INGRESAR</button>
+            </form>
+        </div>
+    </div>
 
     <script>
         // Script para manejo de Tabs (Pestañas)
@@ -656,7 +498,48 @@
 
             // Mostrar el tab actual y añadir clase active
             document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
+
+            // If the event is null (manual trigger), find the button by ID and add active class (simplified)
+            // Or just trust the `evt.currentTarget` if provided.
+            if (evt && evt.currentTarget) {
+                evt.currentTarget.className += " active";
+            } else {
+                // Fallback for manual trigger without event object (e.g. from nav)
+                // Find button that opens this tab
+                // This part is handled by activateTabAndScroll specific logic usually, 
+                // but let's make openTab robust enough if we pass a dummy event or handle it outside.
+            }
+        }
+
+        function activateTabAndScroll(tabName) {
+            // Scroll to tabs container
+            const tabsContainer = document.querySelector('.tabs-container');
+            tabsContainer.scrollIntoView({ behavior: 'smooth' });
+
+            // Simulate click on the tab button
+            // We find the tab button that corresponds to this tabName
+            // We added id="tab-nuevos" to the button for direct access or we can search by onclick attribute
+
+            // Simpler: Just manual DOM manipulation + reuse logic
+            // Hide all tabs
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Deactivate all buttons
+            var tablinks = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Activate specific tab
+            document.getElementById(tabName).style.display = "block";
+
+            // Activate button (Specific logic for 'nuevos')
+            if (tabName === 'nuevos') {
+                document.getElementById('tab-nuevos').classList.add('active');
+            }
         }
 
         // Script simple para Sticky Header Shadow al hacer scroll
@@ -668,6 +551,305 @@
                 header.style.boxShadow = "0 2px 10px rgba(0,0,0,0.05)";
             }
         });
+
+        // --- Login Logic ---
+        const loginModal = document.getElementById('loginModal');
+        const loginBtn = document.getElementById('login-link');
+        const logoutBtn = document.getElementById('logout-link');
+        const closeModal = document.querySelector('.close-modal');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('login-error');
+        const userMenuText = document.getElementById('user-menu-text');
+
+        // Check if session exists (Simple Simulation)
+        /*
+        if (localStorage.getItem('userLoggedIn') === 'true') {
+             userMenuText.innerText = 'Maria Vargas';
+             loginBtn.style.display = 'none';
+             logoutBtn.style.display = 'block';
+        }
+        */
+
+        // Open Modal
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+
+        // Close Modal
+        closeModal.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+            loginError.style.display = 'none';
+        });
+
+        // Click outside to close
+        window.addEventListener('click', (e) => {
+            if (e.target == loginModal) {
+                loginModal.style.display = 'none';
+                loginError.style.display = 'none';
+            }
+        });
+
+        // Handle Login Submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // Hardcoded Credentials Check
+            // user: mariayvargas@hotmail.com
+            // pass: 1234
+            if (email.trim() === 'mariayvargas@hotmail.com' && password === '1234') {
+                // Success
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Bienvenida!',
+                    text: 'Hola Maria Vargas, has iniciado sesión correctamente.',
+                    confirmButtonColor: '#1a2b4c',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                // Update UI
+                userMenuText.innerText = 'Maria Vargas';
+                //userMenuText.style.color = 'var(--accent-color)'; // Optional highlight
+
+                // Toggle Buttons
+                loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'block';
+
+                // Close Modal & Reset
+                loginModal.style.display = 'none';
+                loginForm.reset();
+                loginError.style.display = 'none';
+
+                // Optional: Save session
+                // localStorage.setItem('userLoggedIn', 'true');
+
+            } else {
+                // Error
+                loginError.innerText = 'Correo o contraseña incorrectos. Por favor intenta nuevamente.';
+                loginError.style.display = 'block';
+
+                // Shake effect simulation or focus
+                document.getElementById('login-password').value = '';
+                document.getElementById('login-password').focus();
+            }
+        });
+
+        // Handle Logout
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Confirm logout
+            Swal.fire({
+                title: '¿Cerrar sesión?',
+                text: "¿Estás seguro que deseas salir de tu cuenta?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#1a2b4c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cerrar sesión',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    userMenuText.innerText = 'Mi Cuenta';
+                    userMenuText.style.color = '';
+
+                    loginBtn.style.display = 'block';
+                    logoutBtn.style.display = 'none';
+
+                    Swal.fire({
+                        title: '¡Hasta luego!',
+                        text: 'Has cerrado sesión correctamente.',
+                        icon: 'success',
+                        confirmButtonColor: '#1a2b4c',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
+
+        // --- Favorites Logic ---
+        function toggleFavorite(element, id) {
+            // Stop propagation to avoid clicking the card itself
+            event.stopPropagation();
+
+            // Check if user is logged in
+            if (userMenuText.innerText === 'Mi Cuenta') {
+                Swal.fire({
+                    title: 'Inicia sesión',
+                    text: "Para guardar tus favoritos, primero debes ingresar a tu cuenta.",
+                    icon: 'info',
+                    confirmButtonText: 'Ok, ir al login',
+                    confirmButtonColor: '#1a2b4c'
+                }).then(() => {
+                    loginModal.style.display = 'flex';
+                });
+                return;
+            }
+
+            // Toggle UI
+            element.classList.toggle('active');
+            let icon = element.querySelector('i');
+
+            if (element.classList.contains('active')) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+                saveFavorite(id, true);
+            } else {
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+                saveFavorite(id, false);
+            }
+        }
+
+        function saveFavorite(id, isAdding) {
+            // Get existing favorites
+            let favorites = JSON.parse(localStorage.getItem('userFavorites')) || [];
+
+            if (isAdding) {
+                if (!favorites.includes(id)) {
+                    favorites.push(id);
+                }
+            } else {
+                favorites = favorites.filter(favId => favId !== id);
+            }
+
+            localStorage.setItem('userFavorites', JSON.stringify(favorites));
+            console.log('Favoritos actualizados:', favorites);
+        }
+
+        // Load favorites on page load (if logged in)
+        // Simulated check, in real app check session
+        window.addEventListener('load', () => {
+            // For demo purposes, we can restore favorites if we assume a logged in user state persists or just load generic ones
+            // But following the logic, only load if user is logged in.
+            // Since we don't persist login state across refresh in this simple demo without localStorage for session,
+            // we will skip auto-loading favorites UI state on refresh unless we added that logic.
+            // we will skip auto-loading favorites UI state on refresh unless we added that logic.
+        });
+
+        // --- Search Logic ---
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const searchResultsSection = document.getElementById('search-results-section');
+        const searchResultsGrid = document.getElementById('search-results-grid');
+        const noResults = document.getElementById('no-results');
+        const tabsHeader = document.querySelector('.tabs-header');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Prevent form submission refresh
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            performSearch(searchInput.value);
+        });
+
+        // Live search
+        searchInput.addEventListener('input', (e) => {
+            performSearch(e.target.value);
+        });
+
+        function performSearch(query) {
+            query = query.toLowerCase().trim();
+
+            if (query === '') {
+                // Restore Tabs View
+                searchResultsSection.style.display = 'none';
+                tabsHeader.style.display = 'flex';
+
+                // Hide all tabs first
+                tabContents.forEach(tab => tab.style.display = 'none');
+
+                // Show active tab
+                const activeBtn = document.querySelector('.tab-btn.active');
+                if (activeBtn) {
+                    // Extract tab ID from onclick attribute: openTab(event, 'tabName')
+                    const match = activeBtn.getAttribute('onclick').match(/'([^']+)'/);
+                    if (match && match[1]) {
+                        document.getElementById(match[1]).style.display = 'block';
+                    }
+                } else {
+                    // Fallback to default
+                    document.getElementById('destacados').style.display = 'block';
+                }
+                return;
+            }
+
+            // Perform Search
+            // 1. Hide tabs
+            tabsHeader.style.display = 'none';
+            tabContents.forEach(tab => tab.style.display = 'none');
+
+            // 2. Show Results Container
+            searchResultsSection.style.display = 'block';
+            searchResultsGrid.innerHTML = '';
+
+            // 3. Find matches across all original property cards
+            // Use querySelectorAll on document to find ALL cards, including hidden ones
+            const allCards = document.querySelectorAll('.property-card');
+            let matchCount = 0;
+
+            // Use a Set to avoid duplicates if cards are moved/cloned improperly (though here we process unique DOM elements)
+            // Note: Since cards are inside hidden divs, they exist in DOM.
+            allCards.forEach(card => {
+                // Skip cards that are already inside search results (if any glitch happens)
+                if (card.parentElement.id === 'search-results-grid') return;
+
+                const title = card.querySelector('.card-title').innerText.toLowerCase();
+                const price = card.querySelector('.card-price').innerText.toLowerCase();
+                const tag = card.querySelector('.card-tag').innerText.toLowerCase();
+                // Optional: check details
+
+                if (title.includes(query) || price.includes(query) || tag.includes(query)) {
+                    // Clone the node to display in results
+                    const clone = card.cloneNode(true);
+                    searchResultsGrid.appendChild(clone);
+                    matchCount++;
+                }
+            });
+
+            // 4. Toggle No Results state
+            if (matchCount === 0) {
+                searchResultsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+            } else {
+                searchResultsGrid.style.display = 'grid';
+                noResults.style.display = 'none';
+            }
+        }
+
+        // --- Carousel Logic ---
+        function moveCarousel(event, btn, direction) {
+            event.stopPropagation(); // Prevent clicking on card
+            event.preventDefault();
+
+            const cardImageContainer = btn.parentElement;
+            const images = cardImageContainer.querySelectorAll('img');
+
+            // Convert NodeList to Array to find index
+            const imgArray = Array.from(images);
+            const activeIndex = imgArray.findIndex(img => img.classList.contains('active'));
+
+            // Remove active class from current
+            if (activeIndex !== -1) {
+                images[activeIndex].classList.remove('active');
+            }
+
+            // Calculate new index
+            let newIndex = activeIndex + direction;
+
+            // Loop functionality
+            if (newIndex >= images.length) {
+                newIndex = 0;
+            } else if (newIndex < 0) {
+                newIndex = images.length - 1;
+            }
+
+            // Add active class to new image
+            images[newIndex].classList.add('active');
+        }
     </script>
 </body>
 
