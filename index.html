@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inmobiliaria La Casona | Propiedades Exclusivas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #1a2b4c;
+            /* Azul oscuro profesional */
+            --accent-color: #c5a47e;
+            /* Dorado/Beige elegante */
+            --bg-light: #f4f4f4;
+            --text-dark: #333333;
+            --text-light: #696969;
+            --hover-shadow: 0 8px 16px 2px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Mulish', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* --- Header Band --- */
+        .header-band {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Header Principal --- */
+        .main-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        /* Buscador estilo Tiendamia */
+        .search-container {
+            flex-grow: 1;
+            max-width: 600px;
+            margin: 0 30px;
+            position: relative;
+        }
+
+        .search-form {
+            display: flex;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: none;
+            outline: none;
+            font-family: 'Mulish';
+        }
+
+        .search-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .icon-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .icon-item i {
+            font-size: 18px;
+            color: var(--text-light);
+        }
+
+        .icon-item:hover i {
+            color: var(--primary-color);
+        }
+
+        /* --- Navegación (Mega Menu simulado) --- */
+        .nav-bar {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            padding: 0 40px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-item {
+            padding: 15px 0;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            color: var(--text-dark);
+        }
+
+        .nav-item:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent-color);
+            transition: 0.3s;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Slider --- */
+        .hero-section {
+            height: 400px;
+            background-image: url('https://images.unsplash.com/photo-1600596542815-2495db98dada?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-btn {
+            background: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .hero-btn:hover {
+            transform: scale(1.05);
+            background: #b08d55;
+        }
+
+        /* --- Tabs Section (Como en el original) --- */
+        .tabs-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-light);
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            background: #f9f9f9;
+        }
+
+        /* --- Grilla de Propiedades (Estilo Tiendamia) --- */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .property-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* La animación clave del ejemplo: Hover Lift */
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .card-image {
+            height: 200px;
+            background-color: #eee;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .card-info {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-light);
+            margin: 0 0 5px 0;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .card-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin: 5px 0;
+        }
+
+        .card-details {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 10px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .card-details span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* --- Banner Fino --- */
+        .skinny-banner {
+            background: #f4f4f4;
+            padding: 10px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .skinny-banner img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #f9f9f9;
+            padding: 50px 20px;
+            margin-top: 50px;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .footer-col a:hover {
+            text-decoration: underline;
+        }
+
+        .newsletter-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .nav-bar {
+                display: none;
+            }
+
+            /* En móvil se usaría un menú hamburguesa */
+            .main-header {
+                padding: 15px 20px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .search-container {
+                order: 3;
+                width: 100%;
+                margin: 10px 0 0 0;
+                max-width: 100%;
+            }
+
+            .header-icons span {
+                display: none;
+            }
+
+            /* Ocultar texto en iconos */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-band">
+        ASESORAMIENTO PERSONALIZADO | FINANCIACIÓN EXCLUSIVA
+    </div>
+
+    <header class="main-header">
+        <div class="logo">
+            <i class="fa-solid fa-house-chimney"></i>
+            LA CASONA
+        </div>
+
+        <div class="search-container">
+            <form class="search-form">
+                <input type="text" class="search-input" placeholder="Buscar por zona, barrio o calle...">
+                <button type="button" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+
+        <div class="header-icons">
+            <div class="icon-item">
+                <i class="fa-regular fa-heart"></i>
+                <span>Favoritos</span>
+            </div>
+            <div class="icon-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Mi Cuenta</span>
+            </div>
+            <div class="icon-item" style="color: var(--primary-color);">
+                <i class="fa-solid fa-phone"></i>
+                <span>Contacto</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <div class="nav-item">Todas las Propiedades</div>
+        <div class="nav-item">Venta</div>
+        <div class="nav-item">Alquiler</div>
+        <div class="nav-item">Emprendimientos</div>
+        <div class="nav-item">Tasaciones</div>
+        <div class="nav-item" style="margin-left: auto; color: var(--accent-color);">Nuevos Ingresos</div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Encuentra tu lugar en el mundo</h1>
+            <p>Más de 50 años conectando personas con hogares.</p>
+            <button class="hero-btn">Ver Oportunidades</button>
+        </div>
+    </div>
+
+    <main class="tabs-container">
+
+        <div class="tabs-header">
+            <div class="tab-btn active" onclick="openTab(event, 'destacados')">Propiedades Destacadas</div>
+            <div class="tab-btn" onclick="openTab(event, 'oportunidades')">Oportunidades de Inversión</div>
+            <div class="tab-btn" onclick="openTab(event, 'alquileres')">Alquileres Recientes</div>
+        </div>
+
+        <div id="destacados" class="tab-content" style="display: block;">
+            <div class="properties-grid">
+
+                <div class="property-card">
+                    <div class="card-image">
+                        <span class="card-tag">VENTA</span>
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Moderna">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Casa Moderna en Barrio Norte, Jardín amplio y piscina</h3>
+                        <div class="card-price">USD 350.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 4 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 3 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 250m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <div class="card-image">
+                        <span class="card-tag" style="background-color: var(--primary-color);">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&q=80"
+                            alt="Departamento">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Departamento de Lujo con vista al río</h3>
+                        <div class="card-price">USD 180.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 2 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 90m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <div class="card-image">
+                        <span class="card-tag">VENTA</span>
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Clásica">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Residencia Clásica en zona residencial exclusiva</h3>
+                        <div class="card-price">USD 520.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 5 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 4 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 400m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <div class="card-image">
+                        <span class="card-tag" style="background: #28a745;">OPORTUNIDAD</span>
+                        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Minimalista">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Minimalista a estrenar, financiación disponible</h3>
+                        <div class="card-price">USD 290.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 3 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 180m²</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="oportunidades" class="tab-content"
+            style="display:none; padding: 40px; text-align:center; color: #666;">
+            <h3>Cargando oportunidades exclusivas...</h3>
+        </div>
+
+        <div id="alquileres" class="tab-content" style="display:none; padding: 40px; text-align:center; color: #666;">
+            <h3>Cargando alquileres recientes...</h3>
+        </div>
+
+    </main>
+
+    <div class="skinny-banner">
+        <div
+            style="background-color: var(--primary-color); color: white; padding: 20px; border-radius: 8px; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+            <div>
+                <h2 style="margin: 0;">¿Querés vender tu propiedad?</h2>
+                <p style="margin: 5px 0 0 0; opacity: 0.8;">Tasamos en 24hs sin costo.</p>
+            </div>
+            <button
+                style="background: white; color: var(--primary-color); border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px;">Solicitar
+                Tasación</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Inmobiliaria La Casona</h4>
+                <p style="color: #696969; font-size: 14px; line-height: 1.6;">
+                    Líderes en el mercado inmobiliario desde 1974. Conectamos sueños con realidades a través de un
+                    servicio transparente y profesional.
+                </p>
+                <div style="margin-top: 15px; font-size: 20px; color: var(--primary-color);">
+                    <i class="fa-brands fa-facebook" style="margin-right: 10px; cursor:pointer;"></i>
+                    <i class="fa-brands fa-instagram" style="margin-right: 10px; cursor:pointer;"></i>
+                    <i class="fa-brands fa-whatsapp" style="margin-right: 10px; cursor:pointer;"></i>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <a href="#">Inicio</a>
+                <a href="#">Propiedades en Venta</a>
+                <a href="#">Alquileres</a>
+                <a href="#">Tasaciones</a>
+                <a href="#">Blog Inmobiliario</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <a href="#"><i class="fa-solid fa-location-dot"></i> Av. Principal 1234</a>
+                <a href="#"><i class="fa-solid fa-phone"></i> +54 11 1234-5678</a>
+                <a href="#"><i class="fa-regular fa-envelope"></i> contacto@lacasona.com</a>
+            </div>
+            <div class="footer-col newsletter-box">
+                <h4 style="margin-top:0;">Suscríbete</h4>
+                <p style="font-size: 12px; color: #666;">Recibe las últimas novedades y oportunidades.</p>
+                <form class="search-form">
+                    <input type="email" placeholder="Tu email"
+                        style="border:none; padding: 8px; width: 100%; outline: none;">
+                    <button type="button"
+                        style="background: var(--primary-color); color: white; border: none; padding: 0 10px; cursor:pointer;">OK</button>
+                </form>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px; color: #999; font-size: 12px;">
+            © 2024 - Inmobiliaria La Casona - Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        // Script para manejo de Tabs (Pestañas)
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            // Ocultar todo el contenido
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Quitar clase active de los botones
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Mostrar el tab actual y añadir clase active
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Script simple para Sticky Header Shadow al hacer scroll
+        window.addEventListener('scroll', function () {
+            var header = document.querySelector('.main-header');
+            if (window.scrollY > 10) {
+                header.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+            } else {
+                header.style.boxShadow = "0 2px 10px rgba(0,0,0,0.05)";
+            }
+        });
+    </script>
+</body>
+
+</html>
