@@ -9,6 +9,12 @@ function createPropertyCard(p) {
         ? p.imagenes_propiedad.find(img => img.es_principal)?.url_imagen || p.imagenes_propiedad[0].url_imagen
         : 'https://via.placeholder.com/500x300?text=Sin+Imagen';
 
+    /* Fix for subdirectory hosting */
+    let finalImgUrl = imagenUrl;
+    if (finalImgUrl && finalImgUrl.startsWith('/uploads')) {
+        finalImgUrl = finalImgUrl.substring(1);
+    }
+
     const op = p.tipo_operacion?.toLowerCase();
     let tagColor = '#1a2b4c';
     if (op === 'venta') tagColor = '#c5a47e';
@@ -24,7 +30,7 @@ function createPropertyCard(p) {
                 <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
             </div>
             <span class="card-tag" style="background-color: ${tagColor};">${p.tipo_operacion?.toUpperCase()}</span>
-            <img src="${imagenUrl}" alt="${p.titulo}" class="active" style="object-fit:cover; height:200px; width:100%;">
+            <img src="${finalImgUrl}" alt="${p.titulo}" class="active" style="object-fit:cover; height:200px; width:100%;">
         </div>
         <div class="card-info">
             <h3 class="card-title">${p.titulo}</h3>
@@ -118,19 +124,68 @@ document.addEventListener('DOMContentLoaded', async () => {
         e.preventDefault();
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
-        const res = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-        const data = await res.json();
-        if (res.ok) {
-            localStorage.setItem('userSession', JSON.stringify(data));
-            location.reload();
-        } else {
-            const err = document.getElementById('login-error');
-            err.innerText = data.error;
-            err.style.display = 'block';
+        const errorMsg = document.getElementById('login-error');
+
+        try {
+            const res = await fetch('api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                localStorage.setItem('userSession', JSON.stringify(data));
+                location.reload();
+            } else {
+                if (errorMsg) {
+                    errorMsg.innerText = data.error || 'Error al iniciar sesión';
+                    errorMsg.style.display = 'block';
+                }
+            }
+        } catch (err) {
+            console.error('Login error:', err);
+            if (errorMsg) {
+                errorMsg.innerText = 'Error de conexión';
+                errorMsg.style.display = 'block';
+            }
+        }
+    };
+
+    const registerForm = document.getElementById('registerForm');
+    if (registerForm) registerForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const nombre_completo = document.getElementById('reg-nombre').value;
+        const email = document.getElementById('reg-email').value;
+        const password = document.getElementById('reg-password').value;
+        const errorMsg = document.getElementById('reg-error');
+
+        try {
+            const res = await fetch('api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre_completo, email, password })
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                alert('Registro exitoso. Por favor inicia sesión.');
+                // Switch to login
+                document.getElementById('register-container').style.display = 'none';
+                document.getElementById('login-container').style.display = 'block';
+                document.getElementById('login-email').value = email;
+            } else {
+                if (errorMsg) {
+                    errorMsg.innerText = data.error || 'Error al registrar';
+                    errorMsg.style.display = 'block';
+                }
+            }
+        } catch (err) {
+            console.error('Register error:', err);
+            if (errorMsg) {
+                errorMsg.innerText = 'Error de conexión';
+                errorMsg.style.display = 'block';
+            }
         }
     };
 
@@ -180,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // --- Load Data ---
     try {
-        const res = await fetch('/api/propiedades');
+        const res = await fetch('api/propiedades');
         const props = await res.json();
         window.allPropertiesData = props;
 
