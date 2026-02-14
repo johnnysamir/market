@@ -24,7 +24,7 @@ function createPropertyCard(p) {
                 <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
             </div>
             <span class="card-tag" style="background-color: ${tagColor};">${p.tipo_operacion?.toUpperCase()}</span>
-            <img src="${imagenUrl}" alt="${p.titulo}" style="object-fit:cover; height:200px; width:100%;">
+            <img src="${imagenUrl}" alt="${p.titulo}" class="active" style="object-fit:cover; height:200px; width:100%;">
         </div>
         <div class="card-info">
             <h3 class="card-title">${p.titulo}</h3>
@@ -135,34 +135,46 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     // --- Search Logic ---
+    const searchForm = document.getElementById('searchForm');
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('search-results-section');
     const searchGrid = document.getElementById('search-results-grid');
     const tabsHeader = document.querySelector('.tabs-header');
 
+    window.performSearch = (query) => {
+        query = query.toLowerCase().trim();
+        if (query === '') {
+            if (searchResults) searchResults.style.display = 'none';
+            if (tabsHeader) tabsHeader.style.display = 'flex';
+            window.openTab(null, 'destacados');
+            const firstBtn = document.querySelector('.tab-btn');
+            if (firstBtn) firstBtn.classList.add('active');
+            return;
+        }
+        if (tabsHeader) tabsHeader.style.display = 'none';
+        document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+        if (searchResults) searchResults.style.display = 'block';
+
+        const matches = window.allPropertiesData.filter(p => {
+            const searchStr = `${p.titulo || ''} ${p.barrio || ''} ${p.tipo_inmueble || ''} ${p.tipo_operacion || ''} ${p.descripcion || ''} ${p.precio || ''} ${p.moneda || ''}`.toLowerCase();
+            return searchStr.includes(query);
+        });
+
+        if (searchGrid) {
+            searchGrid.innerHTML = matches.map(m => createPropertyCard(m)).join('');
+            const noResults = document.getElementById('no-results');
+            if (noResults) noResults.style.display = matches.length ? 'none' : 'block';
+            searchGrid.style.display = matches.length ? 'grid' : 'none';
+        }
+    };
+
     if (searchInput) {
-        searchInput.oninput = (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            if (query === '') {
-                if (searchResults) searchResults.style.display = 'none';
-                if (tabsHeader) tabsHeader.style.display = 'flex';
-                window.openTab(null, 'destacados');
-                document.querySelector('.tab-btn').classList.add('active');
-                return;
-            }
-            if (tabsHeader) tabsHeader.style.display = 'none';
-            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
-            if (searchResults) searchResults.style.display = 'block';
-
-            const matches = window.allPropertiesData.filter(p => {
-                const searchStr = `${p.titulo || ''} ${p.barrio || ''} ${p.tipo_inmueble || ''} ${p.tipo_operacion || ''} ${p.descripcion || ''}`.toLowerCase();
-                return searchStr.includes(query);
-            });
-
-            if (searchGrid) {
-                searchGrid.innerHTML = matches.map(m => createPropertyCard(m)).join('');
-                document.getElementById('no-results').style.display = matches.length ? 'none' : 'block';
-            }
+        searchInput.oninput = (e) => window.performSearch(e.target.value);
+    }
+    if (searchForm) {
+        searchForm.onsubmit = (e) => {
+            e.preventDefault();
+            window.performSearch(searchInput.value);
         };
     }
 
