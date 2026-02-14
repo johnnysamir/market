@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Propiedad | Inmobiliaria La Casona</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/chatbot.css">
+
+    <style>
+        .publish-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .form-section-title {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #fdfdfd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background: #f0f4f8;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .feature-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .img-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .remove-img {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .remove-img:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-band">ASESORAMIENTO PERSONALIZADO | FINANCIACIÓN EXCLUSIVA</div>
+
+    <header class="main-header">
+        <a href="index.html" class="logo"><i class="fa-solid fa-house-chimney"></i> LA CASONA</a>
+        <div class="header-icons">
+            <div class="icon-item" onclick="window.history.back()"><i
+                    class="fa-solid fa-arrow-left"></i><span>Volver</span></div>
+            <div class="icon-item dropdown-container">
+                <i class="fa-regular fa-user"></i><span id="user-display">Maria Vargas</span>
+                <div class="dropdown-menu">
+                    <a href="favoritos.html" class="dropdown-item">Mis Favoritos</a>
+                    <a href="mis-propiedades.html" class="dropdown-item">Mis Propiedades</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="index.html" class="dropdown-item logout-item">Salir</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="publish-container">
+        <div class="form-box">
+            <h1 class="section-title" id="page-title" style="text-align: left; margin-bottom: 5px;">Editar Propiedad
+            </h1>
+            <p style="color: #666; margin-bottom: 30px;">Modifica los campos necesarios para actualizar tu publicación.
+            </p>
+
+            <form id="editForm">
+                <div class="form-section-title">Información Básica</div>
+                <div class="form-group"><label class="form-label">Título del Aviso</label><input type="text" id="titulo"
+                        class="form-input" required></div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Tipo de Operación</label><select
+                            id="tipo_operacion" class="form-select" required>
+                            <option value="venta">Venta</option>
+                            <option value="alquiler">Alquiler</option>
+                            <option value="temporal">Alquiler Temporal</option>
+                        </select></div>
+                    <div class="form-group"><label class="form-label">Tipo de Inmueble</label><select id="tipo_inmueble"
+                            class="form-select" required>
+                            <option value="casa">Casa</option>
+                            <option value="departamento">Departamento</option>
+                            <option value="ph">PH</option>
+                            <option value="terreno">Terreno/Lote</option>
+                        </select></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Moneda</label><select id="moneda"
+                            class="form-select">
+                            <option value="USD">USD</option>
+                            <option value="ARS">ARS</option>
+                        </select></div>
+                    <div class="form-group"><label class="form-label">Precio</label><input type="number" id="precio"
+                            class="form-input" required></div>
+                </div>
+
+                <div class="form-section-title">Ubicación</div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Calle</label><input type="text" id="calle"
+                            class="form-input" required></div>
+                    <div class="form-group"><label class="form-label">Altura</label><input type="text" id="altura"
+                            class="form-input" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Piso / Depto (Opcional)</label><input type="text"
+                            id="piso" class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Barrio</label><input type="text" id="barrio"
+                            class="form-input" required></div>
+                </div>
+
+                <div class="form-section-title">Características</div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Superficie Total (m²)</label><input type="number"
+                            id="sup_total" class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Superficie Cubierta (m²)</label><input
+                            type="number" id="sup_cubierta" class="form-input"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Ambientes</label><input type="number"
+                            id="ambientes" class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Dormitorios</label><input type="number"
+                            id="dormitorios" class="form-input"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">Baños</label><input type="number" id="banos"
+                            class="form-input"></div>
+                    <div class="form-group"><label class="form-label">Cocheras</label><input type="number" id="cocheras"
+                            class="form-input"></div>
+                </div>
+                <div class="form-group"><label class="form-label">Descripción</label><textarea id="descripcion"
+                        class="form-textarea" required></textarea></div>
+
+                <div class="form-section-title">Fotos y Multimedia</div>
+                <div class="upload-area" id="drop-zone">
+                    <div class="upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                    <h3>Arrastra y suelta tus fotos aquí</h3>
+                    <p style="color: #999;font-size: 14px;">o haz clic para seleccionar archivos</p>
+                    <input type="file" id="fileElem" multiple accept="image/*" style="display:none">
+                </div>
+                <div id="gallery" style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;"></div>
+
+                <div style="margin-top: 40px; display: flex; gap: 20px;">
+                    <button type="button" class="submit-btn" style="background: #ccc; color: #333;"
+                        onclick="window.history.back()">Cancelar</button>
+                    <button type="submit" class="submit-btn">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const propId = urlParams.get('id');
+        const form = document.getElementById('editForm');
+        const dropZone = document.getElementById('drop-zone');
+        const fileElem = document.getElementById('fileElem');
+        const gallery = document.getElementById('gallery');
+        let uploadedImages = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const session = JSON.parse(localStorage.getItem('userSession'));
+            if (!session) { window.location.href = 'index.html'; return; }
+            document.getElementById('user-display').innerText = session.user.nombre;
+
+            if (!propId) { Swal.fire('Error', 'No se especificó propiedad.', 'error'); return; }
+
+            // Load data
+            try {
+                const response = await fetch(`/api/propiedades/${propId}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('titulo').value = data.titulo;
+                    document.getElementById('tipo_operacion').value = data.tipo_operacion;
+                    document.getElementById('tipo_inmueble').value = data.tipo_inmueble;
+                    document.getElementById('moneda').value = data.moneda;
+                    document.getElementById('precio').value = data.precio;
+                    document.getElementById('calle').value = data.calle;
+                    document.getElementById('altura').value = data.altura;
+                    document.getElementById('piso').value = data.piso || '';
+                    document.getElementById('barrio').value = data.barrio;
+                    document.getElementById('sup_total').value = data.superficie_total || '';
+                    document.getElementById('sup_cubierta').value = data.superficie_cubierta || '';
+                    document.getElementById('ambientes').value = data.ambientes;
+                    document.getElementById('dormitorios').value = data.dormitorios;
+                    document.getElementById('banos').value = data.banos || '';
+                    document.getElementById('cocheras').value = data.cocheras || '';
+                    document.getElementById('descripcion').value = data.descripcion;
+
+                    // Load existing images
+                    if (data.imagenes_propiedad && data.imagenes_propiedad.length > 0) {
+                        data.imagenes_propiedad.forEach(img => {
+                            uploadedImages.push(img.url_imagen);
+                            const div = document.createElement('div');
+                            div.className = 'img-container';
+                            div.innerHTML = `<img src="${img.url_imagen}" style="width:100px; height:100px; object-fit:cover; border-radius:4px;">
+                                             <button type="button" class="remove-img" onclick="removeImage('${img.url_imagen}', this)">×</button>`;
+                            div.style.position = 'relative';
+                            gallery.appendChild(div);
+                        });
+                    }
+                } else {
+                    throw new Error('No se pudo cargar la propiedad');
+                }
+            } catch (e) {
+                Swal.fire('Error', e.message, 'error');
+            }
+        });
+
+        // Image Upload Logic
+        dropZone.addEventListener('click', () => fileElem.click());
+        fileElem.addEventListener('change', handleFiles);
+
+        async function handleFiles(files) {
+            const fileList = this.files ? [...this.files] : [...files];
+            for (const file of fileList) {
+                await uploadAndPreview(file);
+            }
+        }
+
+        async function uploadAndPreview(file) {
+            if (!file.type.startsWith('image/')) return;
+
+            const placeholder = document.createElement('div');
+            placeholder.style.cssText = 'width:100px; height:100px; display:flex; align-items:center; justify-content:center; background:#eee; border-radius:4px;';
+            placeholder.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            gallery.appendChild(placeholder);
+
+            const formData = new FormData();
+            formData.append('imagen', file);
+
+            try {
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    uploadedImages.push(data.url);
+                    placeholder.innerHTML = `<img src="${data.url}" style="width:100px; height:100px; object-fit:cover; border-radius:4px;">
+                                             <button type="button" class="remove-img" onclick="removeImage('${data.url}', this)">×</button>`;
+                    placeholder.style.position = 'relative';
+                    placeholder.classList.add('img-container');
+                    placeholder.style.background = 'none';
+                } else { throw new Error(data.error); }
+            } catch (error) {
+                placeholder.remove();
+                Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+            }
+        }
+
+        function removeImage(url, btn) {
+            uploadedImages = uploadedImages.filter(u => u !== url);
+            btn.parentElement.remove();
+        }
+
+        // Drag & Drop
+        ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(name => {
+            dropZone.addEventListener(name, e => { e.preventDefault(); e.stopPropagation(); }, false);
+        });
+        dropZone.addEventListener('drop', e => {
+            handleFiles(e.dataTransfer.files);
+        }, false);
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = form.querySelector('button[type="submit"]');
+
+            const formData = {
+                titulo: document.getElementById('titulo').value,
+                tipo_operacion: document.getElementById('tipo_operacion').value,
+                tipo_inmueble: document.getElementById('tipo_inmueble').value,
+                moneda: document.getElementById('moneda').value,
+                precio: document.getElementById('precio').value,
+                calle: document.getElementById('calle').value,
+                altura: document.getElementById('altura').value,
+                piso: document.getElementById('piso').value,
+                barrio: document.getElementById('barrio').value,
+                superficie_total: document.getElementById('sup_total').value,
+                superficie_cubierta: document.getElementById('sup_cubierta').value,
+                ambientes: document.getElementById('ambientes').value,
+                dormitorios: document.getElementById('dormitorios').value,
+                banos: document.getElementById('banos').value,
+                cocheras: document.getElementById('cocheras').value,
+                descripcion: document.getElementById('descripcion').value,
+                imagenes: uploadedImages
+            };
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Guardando...';
+
+                const response = await fetch(`/api/propiedades/${propId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    await Swal.fire('¡Éxito!', 'Propiedad actualizada correctamente.', 'success');
+                    window.location.href = 'mis-propiedades.html';
+                } else {
+                    let errorMessage = 'Error al guardar los cambios';
+                    try {
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            const errorData = await response.json();
+                            errorMessage = errorData.error || errorMessage;
+                        } else {
+                            errorMessage = `Error del servidor (${response.status}): ${response.statusText}`;
+                        }
+                    } catch (e) {
+                        errorMessage = 'Error crítico en el servidor';
+                    }
+                    throw new Error(errorMessage);
+                }
+            } catch (error) {
+                Swal.fire('Error', error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Guardar Cambios';
+            }
+        });
+    </script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>

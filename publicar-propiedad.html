@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/chatbot.css">
 
     <style>
         .publish-container {
@@ -78,6 +79,33 @@
             color: var(--text-dark);
             cursor: pointer;
         }
+
+        .img-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .remove-img {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .remove-img:hover {
+            background: #c82333;
+        }
     </style>
 </head>
 
@@ -124,14 +152,14 @@
 
                 <div class="form-group">
                     <label class="form-label">Título del Aviso</label>
-                    <input type="text" class="form-input" placeholder="Ej: Hermosa casa con piscina en barrio cerrado"
-                        required>
+                    <input type="text" id="titulo" class="form-input"
+                        placeholder="Ej: Hermosa casa con piscina en barrio cerrado" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Tipo de Operación</label>
-                        <select class="form-select" required>
+                        <select id="tipo_operacion" class="form-select" required>
                             <option value="">Seleccionar...</option>
                             <option value="venta">Venta</option>
                             <option value="alquiler">Alquiler</option>
@@ -140,7 +168,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Tipo de Inmueble</label>
-                        <select class="form-select" required>
+                        <select id="tipo_inmueble" class="form-select" required>
                             <option value="">Seleccionar...</option>
                             <option value="casa">Casa</option>
                             <option value="departamento">Departamento</option>
@@ -155,14 +183,14 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Moneda</label>
-                        <select class="form-select">
+                        <select id="moneda" class="form-select">
                             <option value="usd">Dólar (USD)</option>
                             <option value="ars">Peso Argentino (ARS)</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Precio</label>
-                        <input type="number" class="form-input" placeholder="0" required>
+                        <input type="number" id="precio" class="form-input" placeholder="0" required>
                     </div>
                 </div>
 
@@ -172,22 +200,22 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Calle</label>
-                        <input type="text" class="form-input" placeholder="Nombre de la calle" required>
+                        <input type="text" id="calle" class="form-input" placeholder="Nombre de la calle" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Altura / Número</label>
-                        <input type="text" class="form-input" placeholder="Ej: 1234" required>
+                        <input type="text" id="altura" class="form-input" placeholder="Ej: 1234" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Piso / Depto (Opcional)</label>
-                        <input type="text" class="form-input" placeholder="Ej: 4to B">
+                        <input type="text" id="piso" class="form-input" placeholder="Ej: 4to B">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Barrio / Ciudad</label>
-                        <input type="text" class="form-input" placeholder="Ej: Palermo, CABA" required>
+                        <input type="text" id="barrio" class="form-input" placeholder="Ej: Palermo, CABA" required>
                     </div>
                 </div>
 
@@ -206,36 +234,36 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Superficie Total (m²)</label>
-                        <input type="number" class="form-input" placeholder="Ej: 120">
+                        <input type="number" id="sup_total" class="form-input" placeholder="Ej: 120">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Superficie Cubierta (m²)</label>
-                        <input type="number" class="form-input" placeholder="Ej: 90">
+                        <input type="number" id="sup_cubierta" class="form-input" placeholder="Ej: 90">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Ambientes</label>
-                        <input type="number" class="form-input" min="1">
+                        <input type="number" id="ambientes" class="form-input" min="1">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Dormitorios</label>
-                        <input type="number" class="form-input" min="0">
+                        <input type="number" id="dormitorios" class="form-input" min="0">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Baños</label>
-                        <input type="number" class="form-input" min="1">
+                        <input type="number" id="banos" class="form-input" min="1">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Cocheras</label>
-                        <input type="number" class="form-input" min="0">
+                        <input type="number" id="cocheras" class="form-input" min="0">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Descripción</label>
-                    <textarea class="form-textarea"
+                    <textarea id="descripcion" class="form-textarea"
                         placeholder="Describe los detalles de la propiedad, estado, luminosidad, amenities, etc."
                         required></textarea>
                 </div>
@@ -278,42 +306,148 @@
 
         fileElem.addEventListener('change', handleFiles);
 
-        function handleFiles(files) {
-            files = [...this.files];
-            files.forEach(previewFile);
-        }
+        // State to keep track of uploaded URLs
+        let uploadedImages = [];
 
-        function previewFile(file) {
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = function () {
-                let img = document.createElement('img');
-                img.src = reader.result;
-                img.style.width = '100px';
-                img.style.height = '100px';
-                img.style.objectFit = 'cover';
-                img.style.borderRadius = '4px';
-                gallery.appendChild(img);
+        async function handleFiles(files) {
+            const fileList = this.files ? [...this.files] : [...files];
+
+            for (const file of fileList) {
+                await uploadAndPreview(file);
             }
         }
 
+        async function uploadAndPreview(file) {
+            // Validar que sea imagen
+            if (!file.type.startsWith('image/')) {
+                Swal.fire('Error', 'El archivo debe ser una imagen.', 'error');
+                return;
+            }
+
+            // Crear placeholder de carga
+            const placeholder = document.createElement('div');
+            placeholder.className = 'upload-placeholder';
+            placeholder.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            placeholder.style.cssText = 'width:100px; height:100px; display:flex; align-items:center; justify-content:center; background:#eee; border-radius:4px;';
+            gallery.appendChild(placeholder);
+
+            const formData = new FormData();
+            formData.append('imagen', file);
+
+            try {
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    uploadedImages.push(data.url);
+
+                    // Reemplazar placeholder con imagen real y botón de borrar
+                    placeholder.className = 'img-container';
+                    placeholder.innerHTML = `<img src="${data.url}" style="width:100px; height:100px; object-fit:cover; border-radius:4px;">
+                                             <button type="button" class="remove-img" onclick="removeImage('${data.url}', this)">×</button>`;
+                    placeholder.style.background = 'none';
+                    placeholder.style.position = 'relative';
+                } else {
+                    throw new Error(data.error || 'Error en el servidor');
+                }
+            } catch (error) {
+                placeholder.remove();
+                Swal.fire('Error', 'No se pudo subir la imagen: ' + error.message, 'error');
+            }
+        }
+
+        function removeImage(url, btn) {
+            uploadedImages = uploadedImages.filter(u => u !== url);
+            btn.parentElement.remove();
+        }
+
+
+        // Check Session
+        document.addEventListener('DOMContentLoaded', () => {
+            const session = JSON.parse(localStorage.getItem('userSession'));
+            if (!session) {
+                window.location.href = 'index.html';
+                return;
+            }
+            document.getElementById('user-display').innerText = session.user.nombre;
+        });
+
         // Form Submit
         const form = document.getElementById('publishForm');
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const session = JSON.parse(localStorage.getItem('userSession'));
 
-            // Simulation
-            Swal.fire({
-                title: '¡Publicación Exitosa!',
-                text: 'Tu propiedad ha sido enviada a revisión y pronto estará visible.',
-                icon: 'success',
-                confirmButtonColor: '#1a2b4c',
-                confirmButtonText: 'Ir a Mis Propiedades'
-            }).then((result) => {
-                if (result.isConfirmed) {
+            // Map form data using precise selectors or IDs
+            const formData = {
+                usuario_id: session.user.id,
+                titulo: document.getElementById('titulo').value,
+                tipo_operacion: document.getElementById('tipo_operacion').value,
+                tipo_inmueble: document.getElementById('tipo_inmueble').value,
+                moneda: document.getElementById('moneda').value,
+                precio: document.getElementById('precio').value,
+                calle: document.getElementById('calle').value,
+                altura: document.getElementById('altura').value,
+                piso: document.getElementById('piso').value,
+                barrio: document.getElementById('barrio').value,
+                ciudad: "Buenos Aires", // Default for demo
+                superficie_total: document.getElementById('sup_total').value || null,
+                superficie_cubierta: document.getElementById('sup_cubierta').value || null,
+                ambientes: document.getElementById('ambientes').value || 0,
+                dormitorios: document.getElementById('dormitorios').value || 0,
+                banos: document.getElementById('banos').value || 0,
+                cocheras: document.getElementById('cocheras').value || 0,
+                descripcion: document.getElementById('descripcion').value,
+                imagenes: uploadedImages
+            };
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Publicando...';
+
+                const response = await fetch('/api/propiedades', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    await Swal.fire({
+                        title: '¡Publicación Exitosa!',
+                        text: 'Tu propiedad ha sido publicada correctamente.',
+                        icon: 'success',
+                        confirmButtonColor: '#1a2b4c',
+                        confirmButtonText: 'Ir a Mis Propiedades'
+                    });
                     window.location.href = 'mis-propiedades.html';
+                } else {
+                    let errorMessage = 'Error al publicar la propiedad';
+                    try {
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            const errorData = await response.json();
+                            errorMessage = errorData.error || errorMessage;
+                        } else {
+                            errorMessage = `Error del servidor (${response.status}): ${response.statusText}`;
+                        }
+                    } catch (e) {
+                        errorMessage = 'Error crítico en el servidor al procesar la solicitud.';
+                    }
+                    throw new Error(errorMessage);
                 }
-            });
+            } catch (error) {
+                console.error('Error:', error);
+                Swal.fire('Error', error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Publicar Propiedad';
+            }
         });
 
         // Prevention for Drag & Drop defaults
@@ -353,6 +487,7 @@
         }
 
     </script>
+    <script src="assets/js/chatbot.js"></script>
 </body>
 
 </html>

@@ -16,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/chatbot.css">
 </head>
 
 <body>
@@ -95,301 +96,41 @@
 
         <div id="destacados" class="tab-content" style="display: block;">
             <div class="properties-grid">
-
-                <div class="property-card" data-id="1">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '1')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag">VENTA</span>
-
-                        <!-- Carousel Images (Stacked) -->
-                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=80"
-                            class="active" alt="Casa Moderna 1">
-                        <img src="https://images.unsplash.com/photo-1600596542815-2495db98dada?auto=format&fit=crop&w=500&q=80"
-                            alt="Casa Moderna 2">
-                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80"
-                            alt="Casa Moderna 3">
-
-                        <!-- Controls -->
-                        <button class="carousel-btn prev" onclick="moveCarousel(event, this, -1)"><i
-                                class="fa-solid fa-chevron-left"></i></button>
-                        <button class="carousel-btn next" onclick="moveCarousel(event, this, 1)"><i
-                                class="fa-solid fa-chevron-right"></i></button>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Casa Moderna en Barrio Norte, Jardín amplio y piscina</h3>
-                        <div class="card-price">USD 350.000</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-bed"></i> 4 Dorm</span>
-                            <span><i class="fa-solid fa-bath"></i> 3 Baños</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 250m²</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="property-card" data-id="2">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '2')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background-color: var(--primary-color);">NUEVO</span>
-                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&q=80"
-                            alt="Departamento">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Departamento de Lujo con vista al río</h3>
-                        <div class="card-price">USD 180.000</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-bed"></i> 2 Dorm</span>
-                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 90m²</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="property-card" data-id="3">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '3')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag">VENTA</span>
-                        <!-- Carousel Images -->
-                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80"
-                            class="active" alt="Casa Clásica 1">
-                        <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=500&q=80"
-                            alt="Casa Clásica 2">
-
-                        <!-- Controls -->
-                        <button class="carousel-btn prev" onclick="moveCarousel(event, this, -1)"><i
-                                class="fa-solid fa-chevron-left"></i></button>
-                        <button class="carousel-btn next" onclick="moveCarousel(event, this, 1)"><i
-                                class="fa-solid fa-chevron-right"></i></button>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Residencia Clásica en zona residencial exclusiva</h3>
-                        <div class="card-price">USD 520.000</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-bed"></i> 5 Dorm</span>
-                            <span><i class="fa-solid fa-bath"></i> 4 Baños</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 400m²</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="property-card" data-id="4">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '4')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background: #28a745;">OPORTUNIDAD</span>
-                        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=500&q=80"
-                            alt="Casa Minimalista">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Minimalista a estrenar, financiación disponible</h3>
-                        <div class="card-price">USD 290.000</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-bed"></i> 3 Dorm</span>
-                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 180m²</span>
-                        </div>
-                    </div>
-                </div>
+                <p style="text-align:center; width:100%; color:#666; padding: 40px;">Cargando propiedades destacadas...
+                </p>
 
             </div>
         </div>
 
         <div id="oportunidades" class="tab-content" style="display:none;">
             <div class="properties-grid">
-                <div class="property-card" data-id="5">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '5')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background: #e67e22;">INVERSIÓN</span>
-                        <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=500&q=80"
-                            alt="Local Comercial">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Local comercial céntrico, alta rentabilidad asegurada</h3>
-                        <div class="card-price">USD 120.000</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-store"></i> Local</span>
-                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 45m²</span>
-                        </div>
-                    </div>
-                </div>
+                <p style="text-align:center; width:100%; color:#666; padding: 40px;">Cargando oportunidades...</p>
+            </div>
 
-                <div class="property-card" data-id="6">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '6')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background: #e67e22;">LOTE</span>
-                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=500&q=80"
-                            alt="Terreno">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Terreno para desarrollo en zona de expansión</h3>
-                        <div class="card-price">USD 85.000</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-layer-group"></i> Lote</span>
-                            <span><i class="fa-solid fa-tree"></i> Arbolado</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 600m²</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="property-card" data-id="7">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '7')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background: #e67e22;">REFACCIONAR</span>
-                        <img src="https://images.unsplash.com/photo-1513584685908-95c9e2d09eb4?auto=format&fit=crop&w=500&q=80"
-                            alt="PH a refaccionar">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">PH antiguo a refaccionar, ideal para reciclar</h3>
-                        <div class="card-price">USD 65.000</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-bed"></i> 2 Dorm</span>
-                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 110m²</span>
-                        </div>
-                    </div>
+            <div id="alquileres" class="tab-content" style="display:none;">
+                <div class="properties-grid">
+                    <p style="text-align:center; width:100%; color:#666; padding: 40px;">Cargando alquileres...</p>
                 </div>
             </div>
-        </div>
 
-        <div id="alquileres" class="tab-content" style="display:none;">
-            <div class="properties-grid">
-                <div class="property-card" data-id="8">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '8')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background: #17a2b8;">ALQUILER</span>
-                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=500&q=80"
-                            alt="Monoambiente">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Monoambiente moderno, excelente ubicación</h3>
-                        <div class="card-price">$ 350.000 / mes</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-bed"></i> Monoamb.</span>
-                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 35m²</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="property-card" data-id="9">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '9')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background: #17a2b8;">ALQUILER</span>
-                        <img src="https://images.unsplash.com/photo-1484154218962-a1c00208099f?auto=format&fit=crop&w=500&q=80"
-                            alt="Casa Alquiler">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Casa 3 ambientes, patio y parrilla</h3>
-                        <div class="card-price">$ 650.000 / mes</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-bed"></i> 2 Dorm</span>
-                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 120m²</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="property-card" data-id="10">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '10')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background: #17a2b8;">OFICINA</span>
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=500&q=80"
-                            alt="Oficina">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Oficina corporativa, piso completo, vista abierta</h3>
-                        <div class="card-price">USD 1.200 / mes</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-briefcase"></i> Oficina</span>
-                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 150m²</span>
-                        </div>
-                    </div>
+            <div id="nuevos" class="tab-content" style="display:none;">
+                <div class="properties-grid">
+                    <p style="text-align:center; width:100%; color:#666; padding: 40px;">Cargando nuevos ingresos...</p>
                 </div>
             </div>
-        </div>
 
-        <div id="nuevos" class="tab-content" style="display:none;">
-            <div class="properties-grid">
-                <div class="property-card" data-id="11">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '11')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background: var(--accent-color);">NUEVO</span>
-                        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=500&q=80"
-                            alt="Nuevo Penthouse">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Penthouse de lujo con terraza privada</h3>
-                        <div class="card-price">USD 450.000</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-bed"></i> 4 Dorm</span>
-                            <span><i class="fa-solid fa-bath"></i> 3 Baños</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 220m²</span>
-                        </div>
-                    </div>
+            <div id="search-results-section" style="display:none; text-align: center;">
+                <h2 class="section-title" style="font-size: 24px; margin-bottom: 20px;">Resultados de Búsqueda</h2>
+                <div id="search-results-grid" class="properties-grid">
+                    <!-- Javascript will inject results here -->
                 </div>
-
-                <div class="property-card" data-id="12">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '12')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background: var(--accent-color);">NUEVO</span>
-                        <img src="https://images.unsplash.com/photo-1599809272591-32b9d2c0021c?auto=format&fit=crop&w=500&q=80"
-                            alt="Casa en Barrio Cerrado">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Moderna casa en barrio cerrado exclusivo</h3>
-                        <div class="card-price">USD 680.000</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-bed"></i> 4 Dorm</span>
-                            <span><i class="fa-solid fa-bath"></i> 4 Baños</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 35m²</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="property-card" data-id="13">
-                    <div class="card-image">
-                        <div class="card-fav" onclick="toggleFavorite(this, '13')"><i class="fa-regular fa-heart"></i>
-                        </div>
-                        <span class="card-tag" style="background: var(--accent-color);">NUEVO</span>
-                        <img src="https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=500&q=80"
-                            alt="Duplex">
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Duplex luminoso a estrenar</h3>
-                        <div class="card-price">USD 185.000</div>
-                        <div class="card-details">
-                            <span><i class="fa-solid fa-bed"></i> 3 Dorm</span>
-                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
-                            <span><i class="fa-solid fa-ruler-combined"></i> 110m²</span>
-                        </div>
-                    </div>
+                <div id="no-results" style="display:none; padding: 40px; color: #666;">
+                    <i class="fa-solid fa-magnifying-glass"
+                        style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+                    <h3>No se encontraron propiedades</h3>
+                    <p>Intenta con otros términos de búsqueda.</p>
                 </div>
             </div>
-        </div>
-
-        <div id="search-results-section" style="display:none; text-align: center;">
-            <h2 class="section-title" style="font-size: 24px; margin-bottom: 20px;">Resultados de Búsqueda</h2>
-            <div id="search-results-grid" class="properties-grid">
-                <!-- Javascript will inject results here -->
-            </div>
-            <div id="no-results" style="display:none; padding: 40px; color: #666;">
-                <i class="fa-solid fa-magnifying-glass" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
-                <h3>No se encontraron propiedades</h3>
-                <p>Intenta con otros términos de búsqueda.</p>
-            </div>
-        </div>
 
     </main>
 
@@ -452,30 +193,76 @@
         </div>
     </footer>
 
-    <!-- Login Modal -->
+    <!-- Login Agent Modal (Updated with Register) -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h2 style="color: var(--primary-color);">Iniciar Sesión</h2>
-                <p style="color: #666; font-size: 14px;">Ingresa a tu cuenta para gestionar tus propiedades</p>
+
+            <!-- Login State -->
+            <div id="login-container">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h2 style="color: var(--primary-color);">Iniciar Sesión</h2>
+                    <p style="color: #666; font-size: 14px;">Ingresa a tu cuenta para gestionar tus propiedades</p>
+                </div>
+                <form id="loginForm">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom:5px; font-weight:700;">Correo Electrónico</label>
+                        <input type="email" id="login-email" required placeholder="correo@ejemplo.com"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom:5px; font-weight:700;">Contraseña</label>
+                        <input type="password" id="login-password" required placeholder="********"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                    </div>
+                    <p id="login-error"
+                        style="color: #d9534f; display: none; font-size: 14px; margin-top: 10px; text-align: center;">
+                    </p>
+                    <button type="submit"
+                        style="width: 100%; background: var(--primary-color); color: white; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px;">INGRESAR</button>
+
+                    <p style="text-align: center; margin-top: 15px; font-size: 14px;">
+                        ¿No tienes cuenta? <a href="#" id="go-to-register"
+                            style="color: var(--primary-color); font-weight: bold;">Regístrate aquí</a>
+                    </p>
+                </form>
             </div>
-            <form id="loginForm">
-                <div style="margin-bottom: 15px;">
-                    <label style="display:block; margin-bottom:5px; font-weight:700;">Correo Electrónico</label>
-                    <input type="email" id="login-email" required placeholder="correo@ejemplo.com"
-                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+
+            <!-- Register State (Hidden by default) -->
+            <div id="register-container" style="display: none;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h2 style="color: var(--primary-color);">Crear Cuenta</h2>
+                    <p style="color: #666; font-size: 14px;">Únete a nuestra comunidad</p>
                 </div>
-                <div style="margin-bottom: 15px;">
-                    <label style="display:block; margin-bottom:5px; font-weight:700;">Contraseña</label>
-                    <input type="password" id="login-password" required placeholder="********"
-                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
-                </div>
-                <p id="login-error"
-                    style="color: #d9534f; display: none; font-size: 14px; margin-top: 10px; text-align: center;"></p>
-                <button type="submit"
-                    style="width: 100%; background: var(--primary-color); color: white; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px;">INGRESAR</button>
-            </form>
+                <form id="registerForm">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom:5px; font-weight:700;">Nombre Completo</label>
+                        <input type="text" id="reg-nombre" required placeholder="Juan Perez"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom:5px; font-weight:700;">Correo Electrónico</label>
+                        <input type="email" id="reg-email" required placeholder="correo@ejemplo.com"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom:5px; font-weight:700;">Contraseña</label>
+                        <input type="password" id="reg-password" required placeholder="********"
+                            style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                    </div>
+                    <p id="reg-error"
+                        style="color: #d9534f; display: none; font-size: 14px; margin-top: 10px; text-align: center;">
+                    </p>
+                    <button type="submit"
+                        style="width: 100%; background: var(--secondary-color); color: white; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px;">REGISTRARSE</button>
+
+                    <p style="text-align: center; margin-top: 15px; font-size: 14px;">
+                        ¿Ya tienes cuenta? <a href="#" id="go-to-login"
+                            style="color: var(--primary-color); font-weight: bold;">Ingresa aquí</a>
+                    </p>
+                </form>
+            </div>
+
         </div>
     </div>
 
@@ -561,14 +348,22 @@
         const loginError = document.getElementById('login-error');
         const userMenuText = document.getElementById('user-menu-text');
 
-        // Check if session exists (Simple Simulation)
-        /*
-        if (localStorage.getItem('userLoggedIn') === 'true') {
-             userMenuText.innerText = 'Maria Vargas';
-             loginBtn.style.display = 'none';
-             logoutBtn.style.display = 'block';
+        // Check if session exists
+        const savedSession = localStorage.getItem('userSession');
+        if (savedSession) {
+            try {
+                const sessionData = JSON.parse(savedSession);
+                if (sessionData && sessionData.user) {
+                    // Update UI immediately
+                    userMenuText.innerText = sessionData.user.nombre.split(' ')[0]; // Show first name
+                    loginBtn.style.display = 'none';
+                    logoutBtn.style.display = 'block';
+                }
+            } catch (e) {
+                console.error("Error parsing session", e);
+                localStorage.removeItem('userSession');
+            }
         }
-        */
 
         // Open Modal
         loginBtn.addEventListener('click', (e) => {
@@ -590,52 +385,143 @@
             }
         });
 
+        // Initialize elements
+        const loginContainer = document.getElementById('login-container');
+        const registerContainer = document.getElementById('register-container');
+        const goToRegister = document.getElementById('go-to-register');
+        const goToLogin = document.getElementById('go-to-login');
+        const registerForm = document.getElementById('registerForm');
+        const regError = document.getElementById('reg-error');
+
+        // Toggle Views
+        goToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginContainer.style.display = 'none';
+            registerContainer.style.display = 'block';
+        });
+
+        goToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerContainer.style.display = 'none';
+            loginContainer.style.display = 'block';
+        });
+
         // Handle Login Submission
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
+            const submitBtn = loginForm.querySelector('button');
 
-            // Hardcoded Credentials Check
-            // user: mariayvargas@hotmail.com
-            // pass: 1234
-            if (email.trim() === 'mariayvargas@hotmail.com' && password === '1234') {
-                // Success
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Bienvenida!',
-                    text: 'Hola Maria Vargas, has iniciado sesión correctamente.',
-                    confirmButtonColor: '#1a2b4c',
-                    timer: 2000,
-                    showConfirmButton: false
+            try {
+                loginError.style.display = 'none';
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Verificando...';
+
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
                 });
 
-                // Update UI
-                userMenuText.innerText = 'Maria Vargas';
-                //userMenuText.style.color = 'var(--accent-color)'; // Optional highlight
+                const data = await response.json();
 
-                // Toggle Buttons
-                loginBtn.style.display = 'none';
-                logoutBtn.style.display = 'block';
+                if (response.ok) {
+                    // Success
+                    await Swal.fire({
+                        icon: 'success',
+                        title: '¡Bienvenid@!',
+                        text: `Hola ${data.user.nombre}, has iniciado sesión correctamente.`,
+                        confirmButtonColor: '#1a2b4c',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
 
-                // Close Modal & Reset
-                loginModal.style.display = 'none';
-                loginForm.reset();
-                loginError.style.display = 'none';
+                    // Update UI
+                    updateUserUI(data.user);
 
-                // Optional: Save session
-                // localStorage.setItem('userLoggedIn', 'true');
+                    // Close Modal
+                    closeLoginModal();
 
-            } else {
-                // Error
-                loginError.innerText = 'Correo o contraseña incorrectos. Por favor intenta nuevamente.';
+                    // Save session (In localStorage for demo persistence)
+                    localStorage.setItem('userSession', JSON.stringify(data));
+
+                } else {
+                    throw new Error(data.error || 'Error al iniciar sesión');
+                }
+            } catch (error) {
+                loginError.innerText = error.message;
                 loginError.style.display = 'block';
-
-                // Shake effect simulation or focus
-                document.getElementById('login-password').value = '';
-                document.getElementById('login-password').focus();
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'INGRESAR';
             }
         });
+
+        // Handle Register Submission
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nombre_completo = document.getElementById('reg-nombre').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const submitBtn = registerForm.querySelector('button');
+
+            try {
+                regError.style.display = 'none';
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Registrando...';
+
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre_completo, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Success
+                    await Swal.fire({
+                        icon: 'success',
+                        title: '¡Cuenta Creada!',
+                        text: 'Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión.',
+                        confirmButtonColor: '#28a745'
+                    });
+
+                    // Switch to login view
+                    registerContainer.style.display = 'none';
+                    loginContainer.style.display = 'block';
+                    registerForm.reset();
+
+                    // Pre-fill email
+                    document.getElementById('login-email').value = email;
+
+                } else {
+                    throw new Error(data.error || 'Error al registrar usuario');
+                }
+            } catch (error) {
+                regError.innerText = error.message;
+                regError.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'REGISTRARSE';
+            }
+        });
+
+        function updateUserUI(user) {
+            userMenuText.innerText = user.nombre.split(' ')[0]; // Show first name
+            loginBtn.style.display = 'none';
+            logoutBtn.style.display = 'block';
+        }
+
+        function closeLoginModal() {
+            loginModal.style.display = 'none';
+            loginForm.reset();
+            loginError.style.display = 'none';
+            // Reset to login view for next time
+            loginContainer.style.display = 'block';
+            registerContainer.style.display = 'none';
+        }
 
         // Handle Logout
         logoutBtn.addEventListener('click', (e) => {
@@ -653,6 +539,7 @@
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    localStorage.removeItem('userSession');
                     userMenuText.innerText = 'Mi Cuenta';
                     userMenuText.style.color = '';
 
@@ -672,9 +559,12 @@
         });
 
         // --- Favorites Logic ---
-        function toggleFavorite(element, id) {
+        function toggleFavorite(ev, element, id) {
             // Stop propagation to avoid clicking the card itself
-            event.stopPropagation();
+            if (ev) {
+                ev.stopPropagation();
+                ev.preventDefault();
+            }
 
             // Check if user is logged in
             if (userMenuText.innerText === 'Mi Cuenta') {
@@ -752,71 +642,61 @@
         });
 
         function performSearch(query) {
-            query = query.toLowerCase().trim();
+            try {
+                query = query.toLowerCase().trim();
 
-            if (query === '') {
-                // Restore Tabs View
-                searchResultsSection.style.display = 'none';
-                tabsHeader.style.display = 'flex';
+                if (query === '') {
+                    // Restaurar vista de pestañas
+                    if (searchResultsSection) searchResultsSection.style.display = 'none';
+                    if (tabsHeader) tabsHeader.style.display = 'flex';
+                    tabContents.forEach(tab => tab.style.display = 'none');
 
-                // Hide all tabs first
-                tabContents.forEach(tab => tab.style.display = 'none');
-
-                // Show active tab
-                const activeBtn = document.querySelector('.tab-btn.active');
-                if (activeBtn) {
-                    // Extract tab ID from onclick attribute: openTab(event, 'tabName')
-                    const match = activeBtn.getAttribute('onclick').match(/'([^']+)'/);
-                    if (match && match[1]) {
-                        document.getElementById(match[1]).style.display = 'block';
+                    const activeBtn = document.querySelector('.tab-btn.active');
+                    if (activeBtn) {
+                        const match = activeBtn.getAttribute('onclick').match(/'([^']+)'/);
+                        if (match && match[1]) {
+                            const activeTab = document.getElementById(match[1]);
+                            if (activeTab) activeTab.style.display = 'block';
+                        }
+                    } else if (document.getElementById('destacados')) {
+                        document.getElementById('destacados').style.display = 'block';
                     }
-                } else {
-                    // Fallback to default
-                    document.getElementById('destacados').style.display = 'block';
+                    return;
                 }
-                return;
-            }
 
-            // Perform Search
-            // 1. Hide tabs
-            tabsHeader.style.display = 'none';
-            tabContents.forEach(tab => tab.style.display = 'none');
+                // Ocultar pestañas y mostrar sección de resultados
+                if (tabsHeader) tabsHeader.style.display = 'none';
+                tabContents.forEach(tab => tab.style.display = 'none');
+                if (searchResultsSection) searchResultsSection.style.display = 'block';
 
-            // 2. Show Results Container
-            searchResultsSection.style.display = 'block';
-            searchResultsGrid.innerHTML = '';
+                if (searchResultsGrid) {
+                    searchResultsGrid.innerHTML = '';
 
-            // 3. Find matches across all original property cards
-            // Use querySelectorAll on document to find ALL cards, including hidden ones
-            const allCards = document.querySelectorAll('.property-card');
-            let matchCount = 0;
+                    if (!window.allPropertiesData || window.allPropertiesData.length === 0) {
+                        searchResultsGrid.innerHTML = '<p style="padding: 20px;">Cargando catálogo...</p>';
+                        return;
+                    }
 
-            // Use a Set to avoid duplicates if cards are moved/cloned improperly (though here we process unique DOM elements)
-            // Note: Since cards are inside hidden divs, they exist in DOM.
-            allCards.forEach(card => {
-                // Skip cards that are already inside search results (if any glitch happens)
-                if (card.parentElement.id === 'search-results-grid') return;
+                    const matches = window.allPropertiesData.filter(p => {
+                        const searchStr = `${p.titulo} ${p.barrio || ''} ${p.tipo_inmueble || ''} ${p.tipo_operacion || ''} ${p.descripcion || ''} ${p.precio} ${p.moneda}`.toLowerCase();
+                        return searchStr.includes(query);
+                    });
 
-                const title = card.querySelector('.card-title').innerText.toLowerCase();
-                const price = card.querySelector('.card-price').innerText.toLowerCase();
-                const tag = card.querySelector('.card-tag').innerText.toLowerCase();
-                // Optional: check details
+                    if (matches.length === 0) {
+                        searchResultsGrid.style.display = 'none';
+                        if (noResults) noResults.style.display = 'block';
+                    } else {
+                        searchResultsGrid.style.display = 'grid';
+                        if (noResults) noResults.style.display = 'none';
 
-                if (title.includes(query) || price.includes(query) || tag.includes(query)) {
-                    // Clone the node to display in results
-                    const clone = card.cloneNode(true);
-                    searchResultsGrid.appendChild(clone);
-                    matchCount++;
+                        matches.forEach(p => {
+                            // Reutilizamos la función de creación de tarjetas de main.js (está en el scope global)
+                            searchResultsGrid.innerHTML += createPropertyCard(p);
+                        });
+                    }
                 }
-            });
-
-            // 4. Toggle No Results state
-            if (matchCount === 0) {
-                searchResultsGrid.style.display = 'none';
-                noResults.style.display = 'block';
-            } else {
-                searchResultsGrid.style.display = 'grid';
-                noResults.style.display = 'none';
+            } catch (err) {
+                console.error("Search Error:", err);
             }
         }
 
@@ -851,6 +731,8 @@
             images[newIndex].classList.add('active');
         }
     </script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/chatbot.js"></script>
 </body>
 
 </html>

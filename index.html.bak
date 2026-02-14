@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inmobiliaria La Casona | Propiedades Exclusivas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- SweetAlert2 for beautiful modals -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div class="header-band">
+        ASESORAMIENTO PERSONALIZADO | FINANCIACIÓN EXCLUSIVA
+    </div>
+
+    <header class="main-header">
+        <div class="logo">
+            <i class="fa-solid fa-house-chimney"></i>
+            LA CASONA
+        </div>
+
+        <div class="search-container">
+            <form class="search-form" id="searchForm">
+                <input type="text" id="searchInput" class="search-input"
+                    placeholder="Buscar por zona, barrio o calle...">
+                <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+
+        <div class="header-icons">
+            <div class="icon-item">
+                <i class="fa-regular fa-heart"></i>
+                <span>Favoritos</span>
+            </div>
+            <div class="icon-item dropdown-container">
+                <i class="fa-regular fa-user"></i>
+                <span id="user-menu-text">Mi Cuenta</span>
+                <div class="dropdown-menu">
+                    <a href="#" id="login-link" class="dropdown-item">Ingresar</a>
+                    <a href="favoritos.html" class="dropdown-item">Mis Favoritos</a>
+
+                    <a href="mis-propiedades.html" class="dropdown-item">Mis Propiedades</a>
+                    <a href="#" class="dropdown-item">Estadísticas</a>
+
+                    <div class="dropdown-divider"></div>
+                    <a href="#" id="logout-link" class="dropdown-item logout-item" style="display:none;">Salir de Mi
+                        Cuenta</a>
+                </div>
+            </div>
+            <div class="icon-item" onclick="window.location.href='contacto.html'" style="color: var(--primary-color);">
+                <i class="fa-solid fa-phone"></i>
+                <span>Contacto</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <div class="nav-item">Todas las Propiedades</div>
+        <div class="nav-item">Venta</div>
+        <div class="nav-item">Alquiler</div>
+        <div class="nav-item">Emprendimientos</div>
+        <a href="tasacion.html" class="nav-item">Tasaciones</a>
+        <div class="nav-item" style="margin-left: auto; color: var(--accent-color);"
+            onclick="activateTabAndScroll('nuevos')">Nuevos Ingresos</div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Encuentra tu lugar en el mundo</h1>
+            <p>Más de 50 años conectando personas con hogares.</p>
+            <button class="hero-btn">Ver Oportunidades</button>
+        </div>
+    </div>
+
+    <main class="tabs-container">
+
+        <div class="tabs-header">
+            <div class="tab-btn active" onclick="openTab(event, 'destacados')">Propiedades Destacadas</div>
+            <div class="tab-btn" onclick="openTab(event, 'oportunidades')">Oportunidades de Inversión</div>
+            <div class="tab-btn" onclick="openTab(event, 'alquileres')">Alquileres Recientes</div>
+            <div class="tab-btn" id="tab-nuevos" onclick="openTab(event, 'nuevos')">Nuevos Ingresos</div>
+        </div>
+
+        <div id="destacados" class="tab-content" style="display: block;">
+            <div class="properties-grid">
+
+                <div class="property-card" data-id="1">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '1')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag">VENTA</span>
+
+                        <!-- Carousel Images (Stacked) -->
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=80"
+                            class="active" alt="Casa Moderna 1">
+                        <img src="https://images.unsplash.com/photo-1600596542815-2495db98dada?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Moderna 2">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Moderna 3">
+
+                        <!-- Controls -->
+                        <button class="carousel-btn prev" onclick="moveCarousel(event, this, -1)"><i
+                                class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" onclick="moveCarousel(event, this, 1)"><i
+                                class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Casa Moderna en Barrio Norte, Jardín amplio y piscina</h3>
+                        <div class="card-price">USD 350.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 4 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 3 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 250m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="2">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '2')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background-color: var(--primary-color);">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&q=80"
+                            alt="Departamento">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Departamento de Lujo con vista al río</h3>
+                        <div class="card-price">USD 180.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 2 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 90m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="3">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '3')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag">VENTA</span>
+                        <!-- Carousel Images -->
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=500&q=80"
+                            class="active" alt="Casa Clásica 1">
+                        <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Clásica 2">
+
+                        <!-- Controls -->
+                        <button class="carousel-btn prev" onclick="moveCarousel(event, this, -1)"><i
+                                class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" onclick="moveCarousel(event, this, 1)"><i
+                                class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Residencia Clásica en zona residencial exclusiva</h3>
+                        <div class="card-price">USD 520.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 5 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 4 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 400m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="4">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '4')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #28a745;">OPORTUNIDAD</span>
+                        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Minimalista">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Minimalista a estrenar, financiación disponible</h3>
+                        <div class="card-price">USD 290.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 3 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 180m²</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="oportunidades" class="tab-content" style="display:none;">
+            <div class="properties-grid">
+                <div class="property-card" data-id="5">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '5')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #e67e22;">INVERSIÓN</span>
+                        <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=500&q=80"
+                            alt="Local Comercial">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Local comercial céntrico, alta rentabilidad asegurada</h3>
+                        <div class="card-price">USD 120.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-store"></i> Local</span>
+                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 45m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="6">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '6')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #e67e22;">LOTE</span>
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=500&q=80"
+                            alt="Terreno">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Terreno para desarrollo en zona de expansión</h3>
+                        <div class="card-price">USD 85.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-layer-group"></i> Lote</span>
+                            <span><i class="fa-solid fa-tree"></i> Arbolado</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 600m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="7">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '7')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #e67e22;">REFACCIONAR</span>
+                        <img src="https://images.unsplash.com/photo-1513584685908-95c9e2d09eb4?auto=format&fit=crop&w=500&q=80"
+                            alt="PH a refaccionar">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">PH antiguo a refaccionar, ideal para reciclar</h3>
+                        <div class="card-price">USD 65.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 2 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 110m²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="alquileres" class="tab-content" style="display:none;">
+            <div class="properties-grid">
+                <div class="property-card" data-id="8">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '8')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #17a2b8;">ALQUILER</span>
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=500&q=80"
+                            alt="Monoambiente">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Monoambiente moderno, excelente ubicación</h3>
+                        <div class="card-price">$ 350.000 / mes</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> Monoamb.</span>
+                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 35m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="9">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '9')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #17a2b8;">ALQUILER</span>
+                        <img src="https://images.unsplash.com/photo-1484154218962-a1c00208099f?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa Alquiler">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Casa 3 ambientes, patio y parrilla</h3>
+                        <div class="card-price">$ 650.000 / mes</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 2 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 1 Baño</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 120m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="10">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '10')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: #17a2b8;">OFICINA</span>
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=500&q=80"
+                            alt="Oficina">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Oficina corporativa, piso completo, vista abierta</h3>
+                        <div class="card-price">USD 1.200 / mes</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-briefcase"></i> Oficina</span>
+                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 150m²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="nuevos" class="tab-content" style="display:none;">
+            <div class="properties-grid">
+                <div class="property-card" data-id="11">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '11')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: var(--accent-color);">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=500&q=80"
+                            alt="Nuevo Penthouse">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Penthouse de lujo con terraza privada</h3>
+                        <div class="card-price">USD 450.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 4 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 3 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 220m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="12">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '12')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: var(--accent-color);">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1599809272591-32b9d2c0021c?auto=format&fit=crop&w=500&q=80"
+                            alt="Casa en Barrio Cerrado">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Moderna casa en barrio cerrado exclusivo</h3>
+                        <div class="card-price">USD 680.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 4 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 4 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 35m²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="property-card" data-id="13">
+                    <div class="card-image">
+                        <div class="card-fav" onclick="toggleFavorite(this, '13')"><i class="fa-regular fa-heart"></i>
+                        </div>
+                        <span class="card-tag" style="background: var(--accent-color);">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=500&q=80"
+                            alt="Duplex">
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Duplex luminoso a estrenar</h3>
+                        <div class="card-price">USD 185.000</div>
+                        <div class="card-details">
+                            <span><i class="fa-solid fa-bed"></i> 3 Dorm</span>
+                            <span><i class="fa-solid fa-bath"></i> 2 Baños</span>
+                            <span><i class="fa-solid fa-ruler-combined"></i> 110m²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="search-results-section" style="display:none; text-align: center;">
+            <h2 class="section-title" style="font-size: 24px; margin-bottom: 20px;">Resultados de Búsqueda</h2>
+            <div id="search-results-grid" class="properties-grid">
+                <!-- Javascript will inject results here -->
+            </div>
+            <div id="no-results" style="display:none; padding: 40px; color: #666;">
+                <i class="fa-solid fa-magnifying-glass" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+                <h3>No se encontraron propiedades</h3>
+                <p>Intenta con otros términos de búsqueda.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="skinny-banner">
+        <div
+            style="background-color: var(--primary-color); color: white; padding: 20px; border-radius: 8px; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+            <div>
+                <h2 style="margin: 0;">¿Querés vender tu propiedad?</h2>
+                <p style="margin: 5px 0 0 0; opacity: 0.8;">Tasamos en 24hs sin costo.</p>
+            </div>
+            <a href="tasacion.html"
+                style="background: white; color: var(--primary-color); border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; text-decoration: none;">Solicitar
+                Tasación</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Inmobiliaria La Casona</h4>
+                <p style="color: #696969; font-size: 14px; line-height: 1.6;">
+                    Líderes en el mercado inmobiliario desde 1974. Conectamos sueños con realidades a través de un
+                    servicio transparente y profesional.
+                </p>
+                <div style="margin-top: 15px; font-size: 20px; color: var(--primary-color);">
+                    <i class="fa-brands fa-facebook" style="margin-right: 10px; cursor:pointer;"></i>
+                    <i class="fa-brands fa-instagram" style="margin-right: 10px; cursor:pointer;"></i>
+                    <i class="fa-brands fa-whatsapp" style="margin-right: 10px; cursor:pointer;"></i>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <a href="#">Inicio</a>
+                <a href="#">Propiedades en Venta</a>
+                <a href="#">Alquileres</a>
+                <a href="#">Tasaciones</a>
+                <a href="#">Blog Inmobiliario</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <a href="https://maps.google.com/?q=Argerich+325,+CABA" target="_blank" title="Ver en mapa">
+                    <i class="fa-solid fa-location-dot"></i> Argerich 325, Local A, CABA
+                </a>
+                <a href="#"><i class="fa-solid fa-phone"></i> +54 11 1234-5678</a>
+                <a href="#"><i class="fa-regular fa-envelope"></i> contacto@lacasona.com</a>
+            </div>
+            <div class="footer-col newsletter-box">
+                <h4 style="margin-top:0;">Suscríbete</h4>
+                <p style="font-size: 12px; color: #666;">Recibe las últimas novedades y oportunidades.</p>
+                <form class="search-form">
+                    <input type="email" placeholder="Tu email"
+                        style="border:none; padding: 8px; width: 100%; outline: none;">
+                    <button type="button"
+                        style="background: var(--primary-color); color: white; border: none; padding: 0 10px; cursor:pointer;">OK</button>
+                </form>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px; color: #999; font-size: 12px;">
+            © 2024 - Inmobiliaria La Casona - Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2 style="color: var(--primary-color);">Iniciar Sesión</h2>
+                <p style="color: #666; font-size: 14px;">Ingresa a tu cuenta para gestionar tus propiedades</p>
+            </div>
+            <form id="loginForm">
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px; font-weight:700;">Correo Electrónico</label>
+                    <input type="email" id="login-email" required placeholder="correo@ejemplo.com"
+                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px; font-weight:700;">Contraseña</label>
+                    <input type="password" id="login-password" required placeholder="********"
+                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                <p id="login-error"
+                    style="color: #d9534f; display: none; font-size: 14px; margin-top: 10px; text-align: center;"></p>
+                <button type="submit"
+                    style="width: 100%; background: var(--primary-color); color: white; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px;">INGRESAR</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Script para manejo de Tabs (Pestañas)
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            // Ocultar todo el contenido
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Quitar clase active de los botones
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Mostrar el tab actual y añadir clase active
+            document.getElementById(tabName).style.display = "block";
+
+            // If the event is null (manual trigger), find the button by ID and add active class (simplified)
+            // Or just trust the `evt.currentTarget` if provided.
+            if (evt && evt.currentTarget) {
+                evt.currentTarget.className += " active";
+            } else {
+                // Fallback for manual trigger without event object (e.g. from nav)
+                // Find button that opens this tab
+                // This part is handled by activateTabAndScroll specific logic usually, 
+                // but let's make openTab robust enough if we pass a dummy event or handle it outside.
+            }
+        }
+
+        function activateTabAndScroll(tabName) {
+            // Scroll to tabs container
+            const tabsContainer = document.querySelector('.tabs-container');
+            tabsContainer.scrollIntoView({ behavior: 'smooth' });
+
+            // Simulate click on the tab button
+            // We find the tab button that corresponds to this tabName
+            // We added id="tab-nuevos" to the button for direct access or we can search by onclick attribute
+
+            // Simpler: Just manual DOM manipulation + reuse logic
+            // Hide all tabs
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Deactivate all buttons
+            var tablinks = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Activate specific tab
+            document.getElementById(tabName).style.display = "block";
+
+            // Activate button (Specific logic for 'nuevos')
+            if (tabName === 'nuevos') {
+                document.getElementById('tab-nuevos').classList.add('active');
+            }
+        }
+
+        // Script simple para Sticky Header Shadow al hacer scroll
+        window.addEventListener('scroll', function () {
+            var header = document.querySelector('.main-header');
+            if (window.scrollY > 10) {
+                header.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+            } else {
+                header.style.boxShadow = "0 2px 10px rgba(0,0,0,0.05)";
+            }
+        });
+
+        // --- Login Logic ---
+        const loginModal = document.getElementById('loginModal');
+        const loginBtn = document.getElementById('login-link');
+        const logoutBtn = document.getElementById('logout-link');
+        const closeModal = document.querySelector('.close-modal');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('login-error');
+        const userMenuText = document.getElementById('user-menu-text');
+
+        // Check if session exists (Simple Simulation)
+        /*
+        if (localStorage.getItem('userLoggedIn') === 'true') {
+             userMenuText.innerText = 'Maria Vargas';
+             loginBtn.style.display = 'none';
+             logoutBtn.style.display = 'block';
+        }
+        */
+
+        // Open Modal
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+
+        // Close Modal
+        closeModal.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+            loginError.style.display = 'none';
+        });
+
+        // Click outside to close
+        window.addEventListener('click', (e) => {
+            if (e.target == loginModal) {
+                loginModal.style.display = 'none';
+                loginError.style.display = 'none';
+            }
+        });
+
+        // Handle Login Submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // Hardcoded Credentials Check
+            // user: mariayvargas@hotmail.com
+            // pass: 1234
+            if (email.trim() === 'mariayvargas@hotmail.com' && password === '1234') {
+                // Success
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Bienvenida!',
+                    text: 'Hola Maria Vargas, has iniciado sesión correctamente.',
+                    confirmButtonColor: '#1a2b4c',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                // Update UI
+                userMenuText.innerText = 'Maria Vargas';
+                //userMenuText.style.color = 'var(--accent-color)'; // Optional highlight
+
+                // Toggle Buttons
+                loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'block';
+
+                // Close Modal & Reset
+                loginModal.style.display = 'none';
+                loginForm.reset();
+                loginError.style.display = 'none';
+
+                // Optional: Save session
+                // localStorage.setItem('userLoggedIn', 'true');
+
+            } else {
+                // Error
+                loginError.innerText = 'Correo o contraseña incorrectos. Por favor intenta nuevamente.';
+                loginError.style.display = 'block';
+
+                // Shake effect simulation or focus
+                document.getElementById('login-password').value = '';
+                document.getElementById('login-password').focus();
+            }
+        });
+
+        // Handle Logout
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Confirm logout
+            Swal.fire({
+                title: '¿Cerrar sesión?',
+                text: "¿Estás seguro que deseas salir de tu cuenta?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#1a2b4c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cerrar sesión',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    userMenuText.innerText = 'Mi Cuenta';
+                    userMenuText.style.color = '';
+
+                    loginBtn.style.display = 'block';
+                    logoutBtn.style.display = 'none';
+
+                    Swal.fire({
+                        title: '¡Hasta luego!',
+                        text: 'Has cerrado sesión correctamente.',
+                        icon: 'success',
+                        confirmButtonColor: '#1a2b4c',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
+
+        // --- Favorites Logic ---
+        function toggleFavorite(element, id) {
+            // Stop propagation to avoid clicking the card itself
+            event.stopPropagation();
+
+            // Check if user is logged in
+            if (userMenuText.innerText === 'Mi Cuenta') {
+                Swal.fire({
+                    title: 'Inicia sesión',
+                    text: "Para guardar tus favoritos, primero debes ingresar a tu cuenta.",
+                    icon: 'info',
+                    confirmButtonText: 'Ok, ir al login',
+                    confirmButtonColor: '#1a2b4c'
+                }).then(() => {
+                    loginModal.style.display = 'flex';
+                });
+                return;
+            }
+
+            // Toggle UI
+            element.classList.toggle('active');
+            let icon = element.querySelector('i');
+
+            if (element.classList.contains('active')) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+                saveFavorite(id, true);
+            } else {
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+                saveFavorite(id, false);
+            }
+        }
+
+        function saveFavorite(id, isAdding) {
+            // Get existing favorites
+            let favorites = JSON.parse(localStorage.getItem('userFavorites')) || [];
+
+            if (isAdding) {
+                if (!favorites.includes(id)) {
+                    favorites.push(id);
+                }
+            } else {
+                favorites = favorites.filter(favId => favId !== id);
+            }
+
+            localStorage.setItem('userFavorites', JSON.stringify(favorites));
+            console.log('Favoritos actualizados:', favorites);
+        }
+
+        // Load favorites on page load (if logged in)
+        // Simulated check, in real app check session
+        window.addEventListener('load', () => {
+            // For demo purposes, we can restore favorites if we assume a logged in user state persists or just load generic ones
+            // But following the logic, only load if user is logged in.
+            // Since we don't persist login state across refresh in this simple demo without localStorage for session,
+            // we will skip auto-loading favorites UI state on refresh unless we added that logic.
+            // we will skip auto-loading favorites UI state on refresh unless we added that logic.
+        });
+
+        // --- Search Logic ---
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const searchResultsSection = document.getElementById('search-results-section');
+        const searchResultsGrid = document.getElementById('search-results-grid');
+        const noResults = document.getElementById('no-results');
+        const tabsHeader = document.querySelector('.tabs-header');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Prevent form submission refresh
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            performSearch(searchInput.value);
+        });
+
+        // Live search
+        searchInput.addEventListener('input', (e) => {
+            performSearch(e.target.value);
+        });
+
+        function performSearch(query) {
+            query = query.toLowerCase().trim();
+
+            if (query === '') {
+                // Restore Tabs View
+                searchResultsSection.style.display = 'none';
+                tabsHeader.style.display = 'flex';
+
+                // Hide all tabs first
+                tabContents.forEach(tab => tab.style.display = 'none');
+
+                // Show active tab
+                const activeBtn = document.querySelector('.tab-btn.active');
+                if (activeBtn) {
+                    // Extract tab ID from onclick attribute: openTab(event, 'tabName')
+                    const match = activeBtn.getAttribute('onclick').match(/'([^']+)'/);
+                    if (match && match[1]) {
+                        document.getElementById(match[1]).style.display = 'block';
+                    }
+                } else {
+                    // Fallback to default
+                    document.getElementById('destacados').style.display = 'block';
+                }
+                return;
+            }
+
+            // Perform Search
+            // 1. Hide tabs
+            tabsHeader.style.display = 'none';
+            tabContents.forEach(tab => tab.style.display = 'none');
+
+            // 2. Show Results Container
+            searchResultsSection.style.display = 'block';
+            searchResultsGrid.innerHTML = '';
+
+            // 3. Find matches across all original property cards
+            // Use querySelectorAll on document to find ALL cards, including hidden ones
+            const allCards = document.querySelectorAll('.property-card');
+            let matchCount = 0;
+
+            // Use a Set to avoid duplicates if cards are moved/cloned improperly (though here we process unique DOM elements)
+            // Note: Since cards are inside hidden divs, they exist in DOM.
+            allCards.forEach(card => {
+                // Skip cards that are already inside search results (if any glitch happens)
+                if (card.parentElement.id === 'search-results-grid') return;
+
+                const title = card.querySelector('.card-title').innerText.toLowerCase();
+                const price = card.querySelector('.card-price').innerText.toLowerCase();
+                const tag = card.querySelector('.card-tag').innerText.toLowerCase();
+                // Optional: check details
+
+                if (title.includes(query) || price.includes(query) || tag.includes(query)) {
+                    // Clone the node to display in results
+                    const clone = card.cloneNode(true);
+                    searchResultsGrid.appendChild(clone);
+                    matchCount++;
+                }
+            });
+
+            // 4. Toggle No Results state
+            if (matchCount === 0) {
+                searchResultsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+            } else {
+                searchResultsGrid.style.display = 'grid';
+                noResults.style.display = 'none';
+            }
+        }
+
+        // --- Carousel Logic ---
+        function moveCarousel(event, btn, direction) {
+            event.stopPropagation(); // Prevent clicking on card
+            event.preventDefault();
+
+            const cardImageContainer = btn.parentElement;
+            const images = cardImageContainer.querySelectorAll('img');
+
+            // Convert NodeList to Array to find index
+            const imgArray = Array.from(images);
+            const activeIndex = imgArray.findIndex(img => img.classList.contains('active'));
+
+            // Remove active class from current
+            if (activeIndex !== -1) {
+                images[activeIndex].classList.remove('active');
+            }
+
+            // Calculate new index
+            let newIndex = activeIndex + direction;
+
+            // Loop functionality
+            if (newIndex >= images.length) {
+                newIndex = 0;
+            } else if (newIndex < 0) {
+                newIndex = images.length - 1;
+            }
+
+            // Add active class to new image
+            images[newIndex].classList.add('active');
+        }
+    </script>
+</body>
+
+</html>

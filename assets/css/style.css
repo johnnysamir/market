@@ -5,6 +5,8 @@
 :root {
     --primary-color: #1a2b4c;
     /* Azul oscuro profesional */
+    --secondary-color: #28a745;
+    /* Green for success/register actions */
     --accent-color: #c5a47e;
     /* Dorado/Beige elegante */
     --bg-light: #f4f4f4;

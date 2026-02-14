@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model contactos {
+  id              Int          @id @default(autoincrement())
+  propiedad_id    Int?
+  nombre_completo String       @db.VarChar(150)
+  email           String       @db.VarChar(255)
+  telefono        String?      @db.VarChar(50)
+  mensaje         String
+  leido           Boolean?     @default(false)
+  fecha_envio     DateTime?    @default(now()) @db.Timestamp(6)
+  propiedades     propiedades? @relation(fields: [propiedad_id], references: [id], onUpdate: NoAction)
+}
+
+model favoritos {
+  usuario_id     Int
+  propiedad_id   Int
+  fecha_agregado DateTime?   @default(now()) @db.Timestamp(6)
+  propiedades    propiedades @relation(fields: [propiedad_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  usuarios       usuarios    @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([usuario_id, propiedad_id])
+}
+
+model imagenes_propiedad {
+  id           Int          @id @default(autoincrement())
+  propiedad_id Int?
+  url_imagen   String
+  orden        Int?         @default(0)
+  es_principal Boolean?     @default(false)
+  fecha_subida DateTime?    @default(now()) @db.Timestamp(6)
+  propiedades  propiedades? @relation(fields: [propiedad_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model propiedades {
+  id                  Int                  @id @default(autoincrement())
+  usuario_id          Int?
+  titulo              String               @db.VarChar(255)
+  descripcion         String?
+  tipo_operacion      String               @db.VarChar(50)
+  tipo_inmueble       String               @db.VarChar(50)
+  moneda              String?              @default("USD") @db.VarChar(3)
+  precio              Decimal              @db.Decimal(15, 2)
+  calle               String?              @db.VarChar(150)
+  altura              String?              @db.VarChar(20)
+  piso                String?              @db.VarChar(10)
+  departamento        String?              @db.VarChar(10)
+  barrio              String?              @db.VarChar(100)
+  ciudad              String?              @db.VarChar(100)
+  codigo_postal       String?              @db.VarChar(20)
+  latitud             Decimal?             @db.Decimal(10, 8)
+  longitud            Decimal?             @db.Decimal(11, 8)
+  direccion_visible   Boolean?             @default(true)
+  superficie_total    Decimal?             @db.Decimal(10, 2)
+  superficie_cubierta Decimal?             @db.Decimal(10, 2)
+  ambientes           Int?
+  dormitorios         Int?
+  banos               Int?
+  cocheras            Int?
+  estado              String?              @default("disponible") @db.VarChar(20)
+  visitas_contador    Int?                 @default(0)
+  destacada           Boolean?             @default(false)
+  fecha_publicacion   DateTime?            @default(now()) @db.Timestamp(6)
+  fecha_actualizacion DateTime?            @default(now()) @db.Timestamp(6)
+  contactos           contactos[]
+  favoritos           favoritos[]
+  imagenes_propiedad  imagenes_propiedad[]
+  usuarios            usuarios?            @relation(fields: [usuario_id], references: [id], onUpdate: NoAction)
+
+  @@index([estado], map: "idx_propiedades_estado")
+  @@index([tipo_operacion], map: "idx_propiedades_operacion")
+  @@index([precio], map: "idx_propiedades_precio")
+  @@index([tipo_inmueble], map: "idx_propiedades_tipo")
+  @@index([barrio, ciudad], map: "idx_propiedades_ubicacion")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tasaciones {
+  id                  Int       @id @default(autoincrement())
+  nombre_completo     String    @db.VarChar(150)
+  email               String    @db.VarChar(255)
+  telefono            String    @db.VarChar(50)
+  tipo_propiedad      String?   @db.VarChar(50)
+  direccion_propiedad String    @db.VarChar(255)
+  mensaje_adicional   String?
+  estado              String?   @default("pendiente") @db.VarChar(20)
+  fecha_solicitud     DateTime? @default(now()) @db.Timestamp(6)
+
+  @@index([estado], map: "idx_tasaciones_estado")
+}
+
+model usuarios {
+  id              Int           @id @default(autoincrement())
+  email           String        @unique @db.VarChar(255)
+  password_hash   String        @db.VarChar(255)
+  nombre_completo String        @db.VarChar(100)
+  telefono        String?       @db.VarChar(50)
+  rol             String?       @default("cliente") @db.VarChar(20)
+  fecha_registro  DateTime?     @default(now()) @db.Timestamp(6)
+  activo          Boolean?      @default(true)
+  favoritos       favoritos[]
+  propiedades     propiedades[]
+}

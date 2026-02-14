@@ -16,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/chatbot.css">
 
     <style>
         .dashboard-container {
@@ -231,15 +232,38 @@
     </footer>
 
     <script>
-        // Sample Data for User's Properties
-        let myProperties = [
-            { id: 101, title: "Departamento Recoleta", price: "USD 120.000", type: "venta", images: ["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=150&q=80", "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=150&q=80"], status: "active", views: 245 },
-            { id: 102, title: "Casa en San Isidro", price: "USD 450.000", type: "venta", images: ["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=150&q=80"], status: "pending", views: 1120 },
-            { id: 103, title: "Lote en Costa Esmeralda", price: "USD 45.000", type: "venta", images: ["https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=150&q=80"], status: "sold", views: 890 }
-        ];
-
+        // State
+        let myProperties = [];
         const listContainer = document.getElementById('properties-list');
         const noProps = document.getElementById('no-properties');
+        const userDisplay = document.getElementById('user-display');
+
+        // Check Session & Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            const session = JSON.parse(localStorage.getItem('userSession'));
+
+            if (!session || !session.user) {
+                window.location.href = 'index.html'; // Redirect if not logged in
+                return;
+            }
+
+            userDisplay.innerText = session.user.nombre;
+            await loadUserProperties(session.user.id);
+        });
+
+        async function loadUserProperties(userId) {
+            try {
+                listContainer.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:20px;">Cargando tus propiedades...</td></tr>';
+
+                const response = await fetch(`/api/propiedades/usuario/${userId}`);
+                myProperties = await response.json();
+
+                renderProperties();
+            } catch (error) {
+                console.error('Error cargando propiedades:', error);
+                Swal.fire('Error', 'No se pudieron cargar tus propiedades.', 'error');
+            }
+        }
 
         function renderProperties() {
             if (myProperties.length === 0) {
@@ -255,28 +279,35 @@
             myProperties.forEach(prop => {
                 const tr = document.createElement('tr');
 
-                let statusLabel = '';
-                let statusClass = '';
-
-                switch (prop.status) {
-                    case 'active': statusLabel = 'Activo'; statusClass = 'status-active'; break;
-                    case 'pending': statusLabel = 'Reservado'; statusClass = 'status-pending'; break;
-                    case 'sold': statusLabel = 'Vendido'; statusClass = 'status-sold'; break;
+                // Mapping Status
+                let statusLabel = 'Activo';
+                let statusClass = 'status-active';
+                if (prop.estado === 'reservado') {
+                    statusLabel = 'Reservado';
+                    statusClass = 'status-pending';
+                } else if (prop.estado === 'vendido') {
+                    statusLabel = 'Vendido';
+                    statusClass = 'status-sold';
                 }
 
-                const typeClass = prop.type === 'alquiler' ? 'type-alquiler' : 'type-venta';
-                const typeLabel = prop.type ? prop.type.toUpperCase() : 'VENTA';
+                const typeClass = prop.tipo_operacion === 'alquiler' ? 'type-alquiler' : 'type-venta';
+                const typeLabel = prop.tipo_operacion ? prop.tipo_operacion.toUpperCase() : 'VENTA';
+
+                // Handling Images
+                const mainImage = prop.imagenes_propiedad && prop.imagenes_propiedad.length > 0
+                    ? prop.imagenes_propiedad.find(img => img.es_principal)?.url_imagen || prop.imagenes_propiedad[0].url_imagen
+                    : 'https://via.placeholder.com/150?text=Sin+Foto';
 
                 tr.innerHTML = `
                     <td class="prop-image-cell">
-                        <img src="${prop.images[0]}" alt="Propiedad">
-                        ${prop.images.length > 1 ? '<span style="font-size:10px; color:#666; display:block; margin-top:2px;">+' + (prop.images.length - 1) + ' fotos</span>' : ''}
+                        <img src="${mainImage}" alt="Propiedad">
+                        ${prop.imagenes_propiedad?.length > 1 ? '<span style="font-size:10px; color:#666; display:block; margin-top:2px;">+' + (prop.imagenes_propiedad.length - 1) + ' fotos</span>' : ''}
                     </td>
-                    <td><strong>${prop.title}</strong><br><small style="color:#666">ID: ${prop.id}</small></td>
+                    <td><strong>${prop.titulo}</strong><br><small style="color:#666">ID: ${prop.id}</small></td>
                     <td><span class="type-badge ${typeClass}">${typeLabel}</span></td>
-                    <td>${prop.price}</td>
+                    <td>${prop.moneda} ${parseFloat(prop.precio).toLocaleString()}</td>
                     <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
-                    <td>${prop.views}</td>
+                    <td>${prop.visitas_contador || 0}</td>
                     <td>
                         <button class="action-btn view" title="Ver" onclick="viewProperty(${prop.id})"><i class="fa-solid fa-eye"></i></button>
                         <button class="action-btn edit" title="Editar" onclick="editProperty(${prop.id})"><i class="fa-solid fa-pen"></i></button>
@@ -288,42 +319,40 @@
         }
 
         function viewProperty(id) {
-            Swal.fire({
-                title: 'Vista Previa',
-                text: 'Redirigiendo a la publicación...',
-                icon: 'info',
-                timer: 1500,
-                showConfirmButton: false
-            });
+            window.location.href = `propiedad-detalle.html?id=${id}`;
         }
 
         function editProperty(id) {
-            Swal.fire({
-                title: 'Editar Propiedad',
-                text: 'Aquí se abriría el formulario de edición para la propiedad ' + id,
-                icon: 'info'
-            });
+            window.location.href = `editar-propiedad.html?id=${id}`;
         }
 
         function deleteProperty(id) {
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: "No podrás revertir esto.",
+                text: "Esta acción no se puede deshacer.",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
                 confirmButtonText: 'Sí, eliminar',
                 cancelButtonText: 'Cancelar'
-            }).then((result) => {
+            }).then(async (result) => {
                 if (result.isConfirmed) {
-                    myProperties = myProperties.filter(p => p.id !== id);
-                    renderProperties();
-                    Swal.fire(
-                        '¡Eliminado!',
-                        'La propiedad ha sido eliminada.',
-                        'success'
-                    )
+                    try {
+                        const response = await fetch(`/api/propiedades/${id}`, {
+                            method: 'DELETE'
+                        });
+
+                        if (response.ok) {
+                            myProperties = myProperties.filter(p => p.id !== id);
+                            renderProperties();
+                            Swal.fire('¡Eliminado!', 'La propiedad ha sido borrada.', 'success');
+                        } else {
+                            throw new Error('Error al eliminar');
+                        }
+                    } catch (e) {
+                        Swal.fire('Error', 'No se pudo eliminar la propiedad.', 'error');
+                    }
                 }
             })
         }
@@ -331,10 +360,8 @@
         function addNewProperty() {
             window.location.href = 'publicar-propiedad.html';
         }
-
-        // Initialize
-        renderProperties();
     </script>
+    <script src="assets/js/chatbot.js"></script>
 </body>
 
 </html>

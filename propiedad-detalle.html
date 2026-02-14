@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Propiedad | Inmobiliaria La Casona</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/chatbot.css">
+    <style>
+        .detail-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .gallery-main {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: #eee;
+            min-height: 400px;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .property-info h1 {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .price-tag {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .specs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .spec-item i {
+            color: var(--accent-color);
+        }
+
+        .description-text {
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 40px;
+            white-space: pre-wrap;
+        }
+
+        .sidebar-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 20px;
+        }
+
+        .contact-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 992px) {
+            .detail-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="main-header">
+        <a href="index.html" class="logo"><i class="fa-solid fa-house-chimney"></i> LA CASONA</a>
+        <div class="header-icons">
+            <div class="icon-item" onclick="window.history.back()"><i
+                    class="fa-solid fa-arrow-left"></i><span>Volver</span></div>
+        </div>
+    </header>
+
+    <main class="detail-container">
+        <div class="property-content">
+            <div class="gallery-main" id="main-image-container">
+                <!-- Image goes here -->
+            </div>
+            <div class="property-info">
+                <span id="prop-tag" class="card-tag"
+                    style="position: static; display: inline-block; margin-bottom: 15px;">VENTA</span>
+                <h1 id="prop-title">Cargando...</h1>
+                <p id="prop-location" style="color: #666; margin-bottom: 20px;"><i class="fa-solid fa-location-dot"></i>
+                    --</p>
+                <div class="price-tag" id="prop-price">--</div>
+
+                <div class="specs">
+                    <div class="spec-item"><i class="fa-solid fa-expand"></i> <span id="spec-size">-- m²</span></div>
+                    <div class="spec-item"><i class="fa-solid fa-door-open"></i> <span id="spec-amb">-- Amb.</span>
+                    </div>
+                    <div class="spec-item"><i class="fa-solid fa-bed"></i> <span id="spec-dorm">-- Dorm.</span></div>
+                    <div class="spec-item"><i class="fa-solid fa-bath"></i> <span id="spec-bath">-- Baños</span></div>
+                </div>
+
+                <div class="description-text" id="prop-desc">
+                    --
+                </div>
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <h3 style="margin-bottom: 15px;">¿Te interesa esta propiedad?</h3>
+                <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Deja tus datos y un asesor te contactará a
+                    la brevedad.</p>
+                <input type="text" class="form-input" placeholder="Nombre completo" style="margin-bottom: 10px;">
+                <input type="email" class="form-input" placeholder="Email" style="margin-bottom: 10px;">
+                <textarea class="form-textarea" placeholder="Consulta"
+                    style="margin-bottom: 10px; height: 100px;"></textarea>
+                <button class="contact-btn">Enviar Consulta</button>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" style="color: #25d366; font-weight: 700; text-decoration: none;"><i
+                            class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp</a>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const propId = urlParams.get('id');
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!propId) { alert('No se encontró ID de propiedad'); return; }
+
+            try {
+                const response = await fetch(`/api/propiedades/${propId}`);
+                const prop = await response.json();
+
+                if (response.ok) {
+                    document.title = `${prop.titulo} | La Casona`;
+                    document.getElementById('prop-title').innerText = prop.titulo;
+                    document.getElementById('prop-location').innerHTML = `<i class="fa-solid fa-location-dot"></i> ${prop.calle} ${prop.altura}, ${prop.barrio}`;
+                    document.getElementById('prop-price').innerText = `${prop.moneda} ${parseFloat(prop.precio).toLocaleString()}`;
+                    document.getElementById('prop-tag').innerText = prop.tipo_operacion.toUpperCase();
+                    document.getElementById('prop-desc').innerText = prop.descripcion;
+
+                    document.getElementById('spec-size').innerText = `${prop.superficie_total || '--'} m²`;
+                    document.getElementById('spec-amb').innerText = `${prop.ambientes || '--'} Amb.`;
+                    document.getElementById('spec-dorm').innerText = `${prop.dormitorios || '--'} Dorm.`;
+                    document.getElementById('spec-bath').innerText = `${prop.banos || '--'} Baños`;
+
+                    if (prop.imagenes_propiedad && prop.imagenes_propiedad.length > 0) {
+                        const mainImg = prop.imagenes_propiedad.find(img => img.es_principal) || prop.imagenes_propiedad[0];
+                        document.getElementById('main-image-container').innerHTML = `<img src="${mainImg.url_imagen}" alt="${prop.titulo}">`;
+                    }
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        });
+    </script>
+    <script src="assets/js/chatbot.js"></script>
+</body>
+
+</html>
