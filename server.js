@@ -159,8 +159,10 @@ app.post('/api/chat', async (req, res) => {
     }
 
     try {
+        console.log("Chat request received:", mensaje);
         // 2. Obtener los datos y Filtrar por Relevancia (Ahorro de Tokens)
         const catalogoCompleto = await prisma.$queryRaw`SELECT * FROM v_chatbot_publicaciones`;
+        console.log("Catalogo size:", catalogoCompleto.length);
 
         // Simulación de búsqueda semántica simple: Filtramos las 3 más relevantes basadas en palabras clave del mensaje
         const palabrasClave = mensaje.toLowerCase().split(' ').filter(p => p.length > 3);
@@ -168,7 +170,7 @@ app.post('/api/chat', async (req, res) => {
             .map(p => {
                 let score = 0;
                 palabrasClave.forEach(word => {
-                    if (p.resumen_busqueda.toLowerCase().includes(word)) score++;
+                    if (p.resumen_busqueda && p.resumen_busqueda.toLowerCase().includes(word)) score++;
                 });
                 // Prioridad a destacadas
                 if (p.destacada) score += 0.5;
@@ -177,23 +179,26 @@ app.post('/api/chat', async (req, res) => {
             .sort((a, b) => b.score - a.score)
             .slice(0, 3); // Límite: Solo las 3 mejores coincidencias
 
+        console.log("Filtered catalog size:", catalogoFiltrado.length);
+
         // 3. Límite de Contexto: Truncar información a 300 caracteres por propiedad
         const catalogoReducido = catalogoFiltrado.map(p => ({
             id: p.id,
             titulo: p.titulo,
             precio: `${p.moneda} ${p.precio}`,
             barrio: p.barrio,
-            info_esencial: p.resumen_busqueda.substring(0, 300) + '...'
+            info_esencial: (p.resumen_busqueda || '').substring(0, 300) + '...'
         }));
 
         const catalogoStr = JSON.stringify(catalogoReducido);
 
         // 4. Inicializar Gemini (Flash es preferido por velocidad y costo)
+        // Using gemini-2.5-flash as verified by find_working_model.js
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
         // Usamos systemInstruction que es la forma recomendada para Gemini 1.5+
         const model = genAI.getGenerativeModel({
-            model: "gemini-flash-latest",
+            model: "gemini-2.5-flash",
             systemInstruction: `Sos un agente inmobiliario experto de 'jvargas'. 
             CATÁLOGO FILTRADO (Top 3): ${catalogoStr}
             
@@ -209,11 +214,13 @@ app.post('/api/chat', async (req, res) => {
             history: historial || [],
         });
 
-        const input = mensaje; // No hace falta inyectar el prompt del sistema aquí porque ya lo pusimos en systemInstruction
+        const input = mensaje;
 
+        console.log("Sending to Gemini 2.5...");
         const result = await chat.sendMessage(input);
         const response = await result.response;
         const text = response.text();
+        console.log("Gemini response received.");
 
         // Incrementar contador de rate limit
         chatSessions[sessionKey]++;
